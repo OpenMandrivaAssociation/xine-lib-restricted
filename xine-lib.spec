@@ -1,5 +1,5 @@
-%define version 1.1.4
-%define release %mkrel 5
+%define version 1.1.5
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
 %define build_plf 0
@@ -95,11 +95,6 @@ Release:     %{release}
 License:     GPL
 Group:       System/Libraries
 Source:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
-# gw from cvs, disable ffmpeg warning mentioned in bug #28511
-Patch: xine-lib-stack-alignment.patch
-Patch1:	     xine-lib-1.0-real.patch
-Patch4:      mplayer-CVE-2007-1246.patch
-Patch5:      DS_VideoDecoder-CVE-2007-1387.patch
 
 # TODO: build vidix on amd64 and other arches?
 URL:         http://xine.sourceforge.net
@@ -400,15 +395,6 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
-cd m4
-%patch -p0
-cd ..
-%patch1 -p1 -b .real
-pushd src/libw32dll
-%patch4 -p2 -b .cve-2007-1246
-cd DirectShow
-%patch5 -p3 -b .cve-2007-1387
-popd
 
 #gw we need the one from flac 1.1.3
 rm m4/libFLAC.m4
@@ -470,7 +456,7 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 %if ! %build_linuxfb
  --disable-fb \
 %endif
- --enable-ipv6 --with-libflac
+ --enable-ipv6 --with-libflac --with-real-codecs-path=%_prefix/lib/real/
 
 %make
 
@@ -486,7 +472,6 @@ rm -f %buildroot/%_libdir/xine/plugins/%version/*.la
 rm -f %buildroot/%_libdir/xine/plugins/%version/post/*.la
 rm -rf installed-docs
 mv %buildroot/%_datadir/doc/xine-lib installed-docs
-rm -f installed-docs/README
 rm -f %buildroot/%_libdir/xine/plugins/%version/xineplug_inp_vcdo.so
 
 %find_lang libxine1
@@ -499,11 +484,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{bname}-plugins -f libxine1.lang
 %defattr(-,root,root)
+%doc installed-docs/*
 %_mandir/man5/xine.5*
 %dir %_libdir/xine/
 %dir %_libdir/xine/plugins/
 %dir %_libdir/xine/plugins/%version/
 %dir %_libdir/xine/plugins/%version/post/
+%_libdir/xine/plugins/%version/mime.types
 %if %build_alsa
 %_libdir/xine/plugins/%version/xineplug_ao_out_alsa.so
 %endif
@@ -539,7 +526,6 @@ rm -rf $RPM_BUILD_ROOT
 %_libdir/xine/plugins/%version/xineplug_decode_nsf.so
 %_libdir/xine/plugins/%version/xineplug_decode_spu*.so
 %_libdir/xine/plugins/%version/xineplug_decode_real.so
-%_libdir/xine/plugins/%version/xineplug_decode_real_audio.so
 %_libdir/xine/plugins/%version/xineplug_decode_rgb.so
 %_libdir/xine/plugins/%version/xineplug_decode_speex.so
 %if %build_theora
@@ -598,12 +584,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %libname
 %defattr(-,root,root)
-%doc README ChangeLog AUTHORS TODO
+%doc README AUTHORS TODO
 %_libdir/libxine*.so.*
 
 %files -n %libname-devel
 %defattr(-,root,root)
-%doc README installed-docs/*
+%doc README ChangeLog
 %_bindir/xine-config
 %if %mdkversion >= 1020
 %multiarch %multiarch_bindir/xine-config
@@ -685,5 +671,3 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %_libdir/xine/plugins/%version/xineplug_decode_xvid.so*
 %endif
-
-
