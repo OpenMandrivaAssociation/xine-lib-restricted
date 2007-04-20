@@ -1,5 +1,5 @@
 %define version 1.1.6
-%define release %mkrel 1
+%define release %mkrel 2
 %define name    xine-lib
 %define major 1
 %define build_plf 0
@@ -114,6 +114,7 @@ BuildRequires: libmodplug-devel
 BuildRequires: libgdk_pixbuf2.0-devel
 %if %mdkversion >= 200710
 BuildRequires: libxcb-devel
+# gw this is a private dep of libxcb-devel
 BuildRequires: libpthread-stubs
 %endif
 %if %mdkversion >= 200700
