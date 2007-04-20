@@ -112,6 +112,10 @@ Buildrequires: libflac-devel
 Buildrequires: libgnome-vfs2-devel
 BuildRequires: libmodplug-devel
 BuildRequires: libgdk_pixbuf2.0-devel
+%if %mdkversion >= 200710
+BuildRequires: libxcb-devel
+BuildRequires: libpthread-stubs
+%endif
 %if %mdkversion >= 200700
 BuildRequires: libmesaglu-devel
 BuildRequires: libxv-devel
@@ -551,6 +555,10 @@ rm -rf $RPM_BUILD_ROOT
 %if %mdkversion >= 200600
 %_libdir/xine/plugins/%version/xineplug_vo_out_xvmc.so
 %_libdir/xine/plugins/%version/xineplug_vo_out_xxmc.so
+%endif
+%if %mdkversion >= 200710
+%_libdir/xine/plugins/%version/xineplug_vo_out_xcbshm.so
+%_libdir/xine/plugins/%version/xineplug_vo_out_xcbxv.so
 %endif
 %if %build_win32
 %_libdir/xine/plugins/%version/xineplug_decode_qt.so*
