@@ -1,5 +1,5 @@
 %define version 1.1.6
-%define release %mkrel 2
+%define release %mkrel 3
 %define name    xine-lib
 %define major 1
 %define build_plf 0
@@ -94,7 +94,9 @@ Version:     %{version}
 Release:     %{release}
 License:     GPL
 Group:       System/Libraries
-Source:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
+Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
+# (fc) 1.1.6-3mdv fix x-io-select (Mdv bug #29513)
+Patch0:      xine-lib-1.1.6-fix-x-io-select.patch
 
 # TODO: build vidix on amd64 and other arches?
 URL:         http://xine.sourceforge.net
@@ -400,6 +402,7 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
+%patch0 -p1 -b .fix-x-io-select
 
 #gw we need the one from flac 1.1.3
 rm m4/libFLAC.m4
