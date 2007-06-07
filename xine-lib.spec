@@ -1,5 +1,5 @@
-%define version 1.1.6
-%define release %mkrel 3
+%define version 1.1.7
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
 %define build_plf 0
@@ -10,6 +10,7 @@
 
 %define build_pulse	1
 %define build_magick	1
+%define build_arts 0
 
 %if %mdkversion < 1010
 %define build_magick	0
@@ -95,8 +96,6 @@ Release:     %{release}
 License:     GPL
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
-# (fc) 1.1.6-3mdv fix x-io-select (Mdv bug #29513)
-Patch0:      xine-lib-1.1.6-fix-x-io-select.patch
 
 # TODO: build vidix on amd64 and other arches?
 URL:         http://xine.sourceforge.net
@@ -107,7 +106,6 @@ Buildrequires: esound-devel
 Buildrequires: libvorbis-devel
 Buildrequires: libspeex-devel
 Buildrequires: libjack-devel
-Buildrequires: libarts-devel
 Buildrequires: libSDL-devel
 Buildrequires: libmng-devel
 Buildrequires: libflac-devel
@@ -247,15 +245,18 @@ xine is a free gpl-licensed video player for unix-like systems.
 This package contains the development files required for compiling xine
 front ends or plugins.
 
+%if %build_arts
 %package -n %{bname}-arts
 Summary:        Arts plugin for xine
 Group:          Video
 Requires:  %{bname}-plugins = %version
+Buildrequires: libarts-devel
 
 %description -n %{bname}-arts
 xine is a free gpl-licensed video player for unix-like systems.
 
 - Arts audio output plugin
+%endif
 
 %package -n %{bname}-esd
 Summary:        Esd plugin for xine
@@ -402,13 +403,6 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
-%patch0 -p1 -b .fix-x-io-select
-
-#gw we need the one from flac 1.1.3
-rm m4/libFLAC.m4
-aclocal-1.9 -I m4
-autoconf
-automake-1.9
 
 %build
 
@@ -558,7 +552,6 @@ rm -rf $RPM_BUILD_ROOT
 %_libdir/xine/plugins/%version/xineplug_vo_out_xv.so
 %if %mdkversion >= 200600
 %_libdir/xine/plugins/%version/xineplug_vo_out_xvmc.so
-%_libdir/xine/plugins/%version/xineplug_vo_out_xxmc.so
 %endif
 %if %mdkversion >= 200710
 %_libdir/xine/plugins/%version/xineplug_vo_out_xcbshm.so
@@ -615,10 +608,12 @@ rm -rf $RPM_BUILD_ROOT
 %_includedir/xine
 
 
+%if %build_arts
 %files -n %{bname}-arts
 %defattr(-,root,root)
 %doc README 
 %_libdir/xine/plugins/%version/xineplug_ao_out_arts.so
+%endif
 
 %files -n %{bname}-esd
 %defattr(-,root,root)
