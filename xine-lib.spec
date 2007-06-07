@@ -552,6 +552,7 @@ rm -rf $RPM_BUILD_ROOT
 %_libdir/xine/plugins/%version/xineplug_vo_out_xv.so
 %if %mdkversion >= 200600
 %_libdir/xine/plugins/%version/xineplug_vo_out_xvmc.so
+%_libdir/xine/plugins/%version/xineplug_vo_out_xxmc.so
 %endif
 %if %mdkversion >= 200710
 %_libdir/xine/plugins/%version/xineplug_vo_out_xcbshm.so
