@@ -100,6 +100,7 @@ Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
 # TODO: build vidix on amd64 and other arches?
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
+Buildconflicts: %libname-devel < %version
 Buildrequires: aalib-devel
 Buildrequires: libcaca-devel >= 0.99
 Buildrequires: esound-devel
