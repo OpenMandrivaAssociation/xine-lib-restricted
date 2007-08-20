@@ -433,7 +433,7 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 	--libexecdir=%{_libdir} \
 	--localstatedir=/var/lib \
 	--sharedstatedir=%{_prefix}/com \
-	--mandir=%{_datadir}/man \
+	--mandir=%{_mandir} \
 	--infodir=%{_datadir}/info \
 %endif
 %if %external_vcdnav
