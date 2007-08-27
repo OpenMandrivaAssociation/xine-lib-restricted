@@ -1,4 +1,4 @@
-%define version 1.1.7
+%define version 1.1.8
 %define release %mkrel 1
 %define name    xine-lib
 %define major 1
@@ -44,6 +44,7 @@
 %define build_linuxfb 1
 
 %define libname		%mklibname xine %major
+%define libnamedev	%mklibname -d xine
 
 %define bname xine
 %define dvdnav 0.1.4
@@ -100,7 +101,7 @@ Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
 # TODO: build vidix on amd64 and other arches?
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
-Buildconflicts: %libname-devel < %version
+Buildconflicts: libxine-devel < %version
 Buildrequires: aalib-devel
 Buildrequires: libcaca-devel >= 0.99
 Buildrequires: esound-devel
@@ -233,14 +234,14 @@ xine is a free gpl-licensed video player for unix-like systems.
 
 This package contains the shared libraries required by xine.
 
-%package -n %libname-devel
+%package -n %libnamedev
 Summary:        Devel files for xine
 Group:          Development/C
 Requires:	%libname = %version
 Provides:	libxine-devel = %version-%release
-Conflicts:	libxine-devel < %version
+Obsoletes: %mklibname -d xine 1
 
-%description -n %libname-devel
+%description -n %libnamedev
 xine is a free gpl-licensed video player for unix-like systems.
 
 This package contains the development files required for compiling xine
@@ -592,9 +593,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %libname
 %defattr(-,root,root)
 %doc README AUTHORS TODO
-%_libdir/libxine*.so.*
+%_libdir/libxine*.so.%{major}*
 
-%files -n %libname-devel
+%files -n %libnamedev
 %defattr(-,root,root)
 %doc README ChangeLog
 %_bindir/xine-config
