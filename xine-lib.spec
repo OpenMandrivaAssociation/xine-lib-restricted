@@ -1,5 +1,5 @@
 %define version 1.1.8
-%define release %mkrel 1
+%define release %mkrel 2
 %define name    xine-lib
 %define major 1
 %define build_plf 0
@@ -123,6 +123,7 @@ BuildRequires: libpthread-stubs
 BuildRequires: libmesaglu-devel
 BuildRequires: libxv-devel
 BuildRequires: libxvmc-devel
+BuildRequires: libxinerama-devel
 %else
 BuildRequires: libMesaGLU-devel
 BuildRequires: X11-devel
