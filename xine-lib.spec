@@ -1,5 +1,5 @@
 %define version 1.1.8
-%define release %mkrel 2
+%define release %mkrel 3
 %define name    xine-lib
 %define major 1
 %define build_plf 0
@@ -97,6 +97,7 @@ Release:     %{release}
 License:     GPL
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
+Patch0:      xine-lib-more-real-codec-searchpaths.patch
 
 # TODO: build vidix on amd64 and other arches?
 URL:         http://xine.sourceforge.net
@@ -406,6 +407,7 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 
@@ -461,7 +463,10 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 %if ! %build_linuxfb
  --disable-fb \
 %endif
- --enable-ipv6 --with-libflac --with-real-codecs-path=%_prefix/lib/real/
+ --enable-ipv6 --with-libflac
+# real-codecs-path is not set so that runtime searching is used. We want
+# to use either codecs from RealPlayer or real-codecs, whichever is
+# present.
 
 %make
 
