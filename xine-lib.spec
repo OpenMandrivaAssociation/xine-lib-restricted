@@ -1,5 +1,5 @@
 %define version 1.1.8
-%define release %mkrel 3
+%define release %mkrel 4
 %define name    xine-lib
 %define major 1
 %define build_plf 0
@@ -494,7 +494,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{bname}-plugins -f libxine1.lang
 %defattr(-,root,root)
-%doc installed-docs/*
+%doc installed-docs/README* installed-docs/faq.*
 %_mandir/man5/xine.5*
 %dir %_libdir/xine/
 %dir %_libdir/xine/plugins/
@@ -603,7 +603,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %libnamedev
 %defattr(-,root,root)
-%doc README ChangeLog
+%doc README ChangeLog installed-docs/hackersguide
 %_bindir/xine-config
 %if %mdkversion >= 1020
 %multiarch %multiarch_bindir/xine-config
