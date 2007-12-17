@@ -101,7 +101,6 @@ Patch0:      xine-lib-more-real-codec-searchpaths.patch
 
 # TODO: build vidix on amd64 and other arches?
 URL:         http://xine.sourceforge.net
-BuildRoot:   %_tmppath/%{name}-buildroot
 Buildconflicts: libxine-devel < %version
 Buildrequires: aalib-devel
 Buildrequires: libcaca-devel >= 0.99
