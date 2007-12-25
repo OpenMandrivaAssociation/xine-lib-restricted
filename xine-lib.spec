@@ -1,5 +1,5 @@
 %define version 1.1.8
-%define release %mkrel 4
+%define release %mkrel 5
 %define name    xine-lib
 %define major 1
 %define build_plf 0
@@ -97,7 +97,8 @@ Release:     %{release}
 License:     GPL
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
-Patch0:      xine-lib-more-real-codec-searchpaths.patch
+Patch0:      xine-lib-realcodecs-hg-1.patch
+Patch1:      xine-lib-realcodecs-hg-2.patch
 
 # TODO: build vidix on amd64 and other arches?
 URL:         http://xine.sourceforge.net
@@ -407,6 +408,7 @@ PLF because it is covered by software patents.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 
