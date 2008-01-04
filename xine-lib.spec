@@ -1,5 +1,5 @@
 %define version 1.1.8
-%define release %mkrel 5
+%define release %mkrel 6
 %define name    xine-lib
 %define major 1
 %define build_plf 0
