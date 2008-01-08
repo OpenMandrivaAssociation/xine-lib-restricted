@@ -123,7 +123,7 @@ BuildRequires: libxv-devel
 BuildRequires: libxvmc-devel
 BuildRequires: libxinerama-devel
 %else
-BuildRequires: libMesaGLU-devel
+BuildRequires: mesaglu-devel
 BuildRequires: X11-devel
 %endif
 %if %build_smb
