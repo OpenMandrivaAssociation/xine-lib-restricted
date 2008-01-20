@@ -200,7 +200,7 @@ Xine media player. By default it only supports DVDs not scrambled with
 CSS.
 
 %package -n %{bname}-wavpack
-Group: Audio
+Group: Sound
 Summary: Wavpack Audio decoder plugin for xine
 Requires: %{bname}-plugins = %version
 
