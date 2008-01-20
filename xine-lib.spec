@@ -1,12 +1,9 @@
 %define version 1.1.9.1
-%define release %mkrel 1
+%define release %mkrel 2
 %define name    xine-lib
 %define major 1
 %define build_plf 0
 %define build_optimization 0
-
-#fixed2
-%{?!mkrel:%define mkrel(c:) %{-c: 0.%{-c*}.}%{!?_with_unstable:%(perl -e '$_="%{1}";m/(.\*\\D\+)?(\\d+)$/;$rel=${2}-1;re;print "$1$rel";').%{?subrel:%subrel}%{!?subrel:1}.%{?distversion:%distversion}%{?!distversion:%(echo $[%{mdkversion}/10])}}%{?_with_unstable:%{1}}%{?distsuffix:%distsuffix}%{?!distsuffix:mdk}}
 
 %define build_pulse	1
 %define build_magick	1
@@ -112,6 +109,7 @@ Buildrequires: libflac-devel
 Buildrequires: libgnome-vfs2-devel
 BuildRequires: libmodplug-devel
 BuildRequires: libgdk_pixbuf2.0-devel
+BuildRequires: libwavpack-devel
 %if %mdkversion >= 200710
 BuildRequires: libxcb-devel
 # gw this is a private dep of libxcb-devel
@@ -200,6 +198,16 @@ Requires: %{bname}-plugins = %version
 xine-dvdnav provides DVD navigation support (including menus) to the
 Xine media player. By default it only supports DVDs not scrambled with
 CSS.
+
+%package -n %{bname}-wavpack
+Group: Audio
+Summary: Wavpack Audio decoder plugin for xine
+Requires: %{bname}-plugins = %version
+
+%description -n %bname-wavpack
+xine is a free gpl-licensed video player for unix-like systems.
+
+This package contains the wavpack audio decoder plugin.
 
 
 %package -n %{bname}-sdl
@@ -459,7 +467,7 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 %if ! %build_linuxfb
  --disable-fb \
 %endif
- --enable-ipv6 --with-libflac
+ --enable-ipv6 --with-libflac --with-wavpack
 # real-codecs-path is not set so that runtime searching is used. We want
 # to use either codecs from RealPlayer or real-codecs, whichever is
 # present.
@@ -579,6 +587,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc README 
 %_libdir/xine/plugins/%version/xineplug_vo_out_sdl.so
+
+%files -n %bname-wavpack
+%defattr(-,root,root)
+%doc README 
+%_libdir/xine/plugins/%version/xineplug_wavpack.so
+
 
 %files -n %bname-caca
 %defattr(-,root,root)
