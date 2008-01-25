@@ -54,6 +54,8 @@
 %define build_win32 1
 %endif
 
+%define external_ffmpeg 0
+
 %{?_with_plf: %{expand: %%global build_plf 1}}
 %if %build_plf
 %define distsuffix plf
@@ -86,6 +88,8 @@
 %{?_without_pulse: %{expand: %%global build_pulse 0}}
 %{?_with_magick: %{expand: %%global build_magick 1}}
 %{?_without_magick: %{expand: %%global build_magick 0}}
+%{?_with_ffmpeg: %{expand: %%global external_ffmpeg 1}}
+%{?_without_ffmpeg: %{expand: %%global external_ffmpeg 0}}
 
 Name:        %{name}
 Summary:     A Free Video Player (Libraries)
@@ -135,6 +139,9 @@ Buildrequires: libtheora-devel
 %endif
 %if %build_directfb
 Buildrequires: libdirectfb-devel >= 0.9.9
+%endif
+%if %external_ffmpeg
+BuildRequires:	ffmpeg-devel
 %endif
 BuildRequires: autoconf2.5
 %if %mdkversion <= 910
@@ -466,6 +473,9 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 %endif
 %if ! %build_linuxfb
  --disable-fb \
+%endif
+%if %external_ffmpeg
+  --with-external-ffmpeg \
 %endif
  --enable-ipv6 --with-libflac --with-wavpack
 # real-codecs-path is not set so that runtime searching is used. We want
