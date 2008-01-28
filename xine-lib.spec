@@ -1,5 +1,5 @@
 %define version 1.1.10
-%define release %mkrel 1
+%define release %mkrel 2
 %define name    xine-lib
 %define major 1
 %define build_plf 0
@@ -55,6 +55,9 @@
 %endif
 
 %define external_ffmpeg 0
+%if %{mdkversion} >= 200800
+%define external_ffmpeg 1
+%endif
 
 %{?_with_plf: %{expand: %%global build_plf 1}}
 %if %build_plf
