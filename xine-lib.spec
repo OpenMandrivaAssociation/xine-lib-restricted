@@ -1,7 +1,8 @@
-%define version 1.1.10
-%define release %mkrel 2
+%define version 1.1.10.1
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
+%define api 1.1.10
 %define build_plf 0
 %define build_optimization 0
 
@@ -495,11 +496,11 @@ rm -rf %buildroot libxine1.lang
 %multiarch_binaries %buildroot%_bindir/xine-config
 %endif
 #clean out unpackaged files
-rm -f %buildroot/%_libdir/xine/plugins/%version/*.la
-rm -f %buildroot/%_libdir/xine/plugins/%version/post/*.la
+rm -f %buildroot/%_libdir/xine/plugins/%api/*.la
+rm -f %buildroot/%_libdir/xine/plugins/%api/post/*.la
 rm -rf installed-docs
 mv %buildroot/%_datadir/doc/xine-lib installed-docs
-rm -f %buildroot/%_libdir/xine/plugins/%version/xineplug_inp_vcdo.so
+rm -f %buildroot/%_libdir/xine/plugins/%api/xineplug_inp_vcdo.so
 
 %find_lang libxine1
 
@@ -515,108 +516,108 @@ rm -rf $RPM_BUILD_ROOT
 %_mandir/man5/xine.5*
 %dir %_libdir/xine/
 %dir %_libdir/xine/plugins/
-%dir %_libdir/xine/plugins/%version/
-%dir %_libdir/xine/plugins/%version/post/
-%_libdir/xine/plugins/%version/mime.types
+%dir %_libdir/xine/plugins/%api/
+%dir %_libdir/xine/plugins/%api/post/
+%_libdir/xine/plugins/%api/mime.types
 %if %build_alsa
-%_libdir/xine/plugins/%version/xineplug_ao_out_alsa.so
+%_libdir/xine/plugins/%api/xineplug_ao_out_alsa.so
 %endif
-%_libdir/xine/plugins/%version/xineplug_ao_out_file.so
-%_libdir/xine/plugins/%version/xineplug_ao_out_none.so
-%_libdir/xine/plugins/%version/xineplug_ao_out_oss.so
-%_libdir/xine/plugins/%version/xineplug_inp_cdda.so
-%_libdir/xine/plugins/%version/xineplug_inp_dvb.so
-%_libdir/xine/plugins/%version/xineplug_inp_dvd.so
-%_libdir/xine/plugins/%version/xineplug_inp_http.so
-%_libdir/xine/plugins/%version/xineplug_inp_stdin_fifo.so
-%_libdir/xine/plugins/%version/xineplug_inp_file.so
-%_libdir/xine/plugins/%version/xineplug_inp_mms.so
-%_libdir/xine/plugins/%version/xineplug_inp_net.so
-%_libdir/xine/plugins/%version/xineplug_inp_pnm.so
-%_libdir/xine/plugins/%version/xineplug_inp_pvr.so
-%_libdir/xine/plugins/%version/xineplug_inp_rtp.so
-%_libdir/xine/plugins/%version/xineplug_inp_rtsp.so
-%_libdir/xine/plugins/%version/xineplug_inp_vcd.so
-%_libdir/xine/plugins/%version/xineplug_inp_v4l.so
-%_libdir/xine/plugins/%version/xineplug_dmx_*so
-%_libdir/xine/plugins/%version/xineplug_decode_a52.so
-%_libdir/xine/plugins/%version/xineplug_decode_bitplane.so
-%_libdir/xine/plugins/%version/xineplug_decode_dts.so
-%_libdir/xine/plugins/%version/xineplug_decode_dvaudio.so
-%_libdir/xine/plugins/%version/xineplug_decode_ff.so
-%_libdir/xine/plugins/%version/xineplug_decode_gdk_pixbuf.so
-%_libdir/xine/plugins/%version/xineplug_decode_gsm610.so
-%_libdir/xine/plugins/%version/xineplug_decode_lpcm.so
-%_libdir/xine/plugins/%version/xineplug_decode_mad.so
-%_libdir/xine/plugins/%version/xineplug_decode_mpc.so*
-%_libdir/xine/plugins/%version/xineplug_decode_mpeg2.so
-%_libdir/xine/plugins/%version/xineplug_decode_nsf.so
-%_libdir/xine/plugins/%version/xineplug_decode_spu*.so
-%_libdir/xine/plugins/%version/xineplug_decode_real.so
-%_libdir/xine/plugins/%version/xineplug_decode_rgb.so
-%_libdir/xine/plugins/%version/xineplug_decode_speex.so
+%_libdir/xine/plugins/%api/xineplug_ao_out_file.so
+%_libdir/xine/plugins/%api/xineplug_ao_out_none.so
+%_libdir/xine/plugins/%api/xineplug_ao_out_oss.so
+%_libdir/xine/plugins/%api/xineplug_inp_cdda.so
+%_libdir/xine/plugins/%api/xineplug_inp_dvb.so
+%_libdir/xine/plugins/%api/xineplug_inp_dvd.so
+%_libdir/xine/plugins/%api/xineplug_inp_http.so
+%_libdir/xine/plugins/%api/xineplug_inp_stdin_fifo.so
+%_libdir/xine/plugins/%api/xineplug_inp_file.so
+%_libdir/xine/plugins/%api/xineplug_inp_mms.so
+%_libdir/xine/plugins/%api/xineplug_inp_net.so
+%_libdir/xine/plugins/%api/xineplug_inp_pnm.so
+%_libdir/xine/plugins/%api/xineplug_inp_pvr.so
+%_libdir/xine/plugins/%api/xineplug_inp_rtp.so
+%_libdir/xine/plugins/%api/xineplug_inp_rtsp.so
+%_libdir/xine/plugins/%api/xineplug_inp_vcd.so
+%_libdir/xine/plugins/%api/xineplug_inp_v4l.so
+%_libdir/xine/plugins/%api/xineplug_dmx_*so
+%_libdir/xine/plugins/%api/xineplug_decode_a52.so
+%_libdir/xine/plugins/%api/xineplug_decode_bitplane.so
+%_libdir/xine/plugins/%api/xineplug_decode_dts.so
+%_libdir/xine/plugins/%api/xineplug_decode_dvaudio.so
+%_libdir/xine/plugins/%api/xineplug_decode_ff.so
+%_libdir/xine/plugins/%api/xineplug_decode_gdk_pixbuf.so
+%_libdir/xine/plugins/%api/xineplug_decode_gsm610.so
+%_libdir/xine/plugins/%api/xineplug_decode_lpcm.so
+%_libdir/xine/plugins/%api/xineplug_decode_mad.so
+%_libdir/xine/plugins/%api/xineplug_decode_mpc.so*
+%_libdir/xine/plugins/%api/xineplug_decode_mpeg2.so
+%_libdir/xine/plugins/%api/xineplug_decode_nsf.so
+%_libdir/xine/plugins/%api/xineplug_decode_spu*.so
+%_libdir/xine/plugins/%api/xineplug_decode_real.so
+%_libdir/xine/plugins/%api/xineplug_decode_rgb.so
+%_libdir/xine/plugins/%api/xineplug_decode_speex.so
 %if %build_theora
-%_libdir/xine/plugins/%version/xineplug_decode_theora.so
+%_libdir/xine/plugins/%api/xineplug_decode_theora.so
 %endif
-%_libdir/xine/plugins/%version/xineplug_decode_vorbis.so
-%_libdir/xine/plugins/%version/xineplug_decode_yuv.so
+%_libdir/xine/plugins/%api/xineplug_decode_vorbis.so
+%_libdir/xine/plugins/%api/xineplug_decode_yuv.so
 %if %build_directfb
-%_libdir/xine/plugins/%version/xineplug_vo_out_directfb.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_directfb.so
 %endif
 %if %build_linuxfb
-%_libdir/xine/plugins/%version/xineplug_vo_out_fb.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_fb.so
 %endif
-%_libdir/xine/plugins/%version/xineplug_vo_out_syncfb.so
-%_libdir/xine/plugins/%version/xineplug_vo_out_opengl.so
-%_libdir/xine/plugins/%version/xineplug_vo_out_none.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_syncfb.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_opengl.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_none.so
 %if %build_vidix
-%_libdir/xine/plugins/%version/xineplug_vo_out_vidix.so
-%_libdir/xine/plugins/%version/vidix/
+%_libdir/xine/plugins/%api/xineplug_vo_out_vidix.so
+%_libdir/xine/plugins/%api/vidix/
 %endif
-%_libdir/xine/plugins/%version/xineplug_vo_out_xshm.so
-%_libdir/xine/plugins/%version/xineplug_vo_out_xv.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_xshm.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_xv.so
 %if %mdkversion >= 200600
-%_libdir/xine/plugins/%version/xineplug_vo_out_xvmc.so
-%_libdir/xine/plugins/%version/xineplug_vo_out_xxmc.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_xvmc.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_xxmc.so
 %endif
 %if %mdkversion >= 200710
-%_libdir/xine/plugins/%version/xineplug_vo_out_xcbshm.so
-%_libdir/xine/plugins/%version/xineplug_vo_out_xcbxv.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_xcbshm.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_xcbxv.so
 %endif
 %if %build_win32
-%_libdir/xine/plugins/%version/xineplug_decode_qt.so*
-%_libdir/xine/plugins/%version/xineplug_decode_w32dll.so*
+%_libdir/xine/plugins/%api/xineplug_decode_qt.so*
+%_libdir/xine/plugins/%api/xineplug_decode_w32dll.so*
 %endif
-%_libdir/xine/plugins/%version/post/xineplug_post_audio_filters.so
-%_libdir/xine/plugins/%version/post/xineplug_post_goom.so
-%_libdir/xine/plugins/%version/post/xineplug_post_mosaico.so
-%_libdir/xine/plugins/%version/post/xineplug_post_planar.so
-%_libdir/xine/plugins/%version/post/xineplug_post_switch.so
-%_libdir/xine/plugins/%version/post/xineplug_post_tvtime.so
-%_libdir/xine/plugins/%version/post/xineplug_post_visualizations.so
+%_libdir/xine/plugins/%api/post/xineplug_post_audio_filters.so
+%_libdir/xine/plugins/%api/post/xineplug_post_goom.so
+%_libdir/xine/plugins/%api/post/xineplug_post_mosaico.so
+%_libdir/xine/plugins/%api/post/xineplug_post_planar.so
+%_libdir/xine/plugins/%api/post/xineplug_post_switch.so
+%_libdir/xine/plugins/%api/post/xineplug_post_tvtime.so
+%_libdir/xine/plugins/%api/post/xineplug_post_visualizations.so
 %_datadir/xine
 
 %files -n %bname-sdl
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_vo_out_sdl.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_sdl.so
 
 %files -n %bname-wavpack
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_wavpack.so
+%_libdir/xine/plugins/%api/xineplug_wavpack.so
 
 
 %files -n %bname-caca
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_vo_out_caca.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_caca.so
 
 %if %build_magick
 %files -n %{bname}-image
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_decode_image.so
+%_libdir/xine/plugins/%api/xineplug_decode_image.so
 %endif
 
 %files -n %libname
@@ -644,69 +645,69 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{bname}-arts
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_ao_out_arts.so
+%_libdir/xine/plugins/%api/xineplug_ao_out_arts.so
 %endif
 
 %files -n %{bname}-esd
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_ao_out_esd.so
+%_libdir/xine/plugins/%api/xineplug_ao_out_esd.so
 
 %files -n %{bname}-jack
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_ao_out_jack.so
+%_libdir/xine/plugins/%api/xineplug_ao_out_jack.so
 
 %if %build_pulse
 %files -n %{bname}-pulse
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_ao_out_pulseaudio.so
+%_libdir/xine/plugins/%api/xineplug_ao_out_pulseaudio.so
 %endif
 
 %files -n %{bname}-aa
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_vo_out_aa.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_aa.so
 
 %files -n %{bname}-flac
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_flac.so
+%_libdir/xine/plugins/%api/xineplug_flac.so
 
 %ifarch %{ix86} x86_64 ppc
 %files -n %{bname}-dxr3
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_*dxr3*.so
+%_libdir/xine/plugins/%api/xineplug_*dxr3*.so
 %endif
 
 %files -n %{bname}-gnomevfs
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_inp_gnome_vfs.so
+%_libdir/xine/plugins/%api/xineplug_inp_gnome_vfs.so
 
 %if %build_smb
 %files -n %{bname}-smb
 %defattr(-,root,root)
 %doc README 
-%_libdir/xine/plugins/%version/xineplug_inp_smb.so
+%_libdir/xine/plugins/%api/xineplug_inp_smb.so
 %endif
 
 %if %build_divx4
 %files -n %{bname}-divx4
 %defattr(-,root,root)
-%_libdir/xine/plugins/%version/xineplug_decode_divx4.so*
+%_libdir/xine/plugins/%api/xineplug_decode_divx4.so*
 %endif
 
 %if %build_faad
 %files -n %{bname}-faad
 %defattr(-,root,root)
-%_libdir/xine/plugins/%version/xineplug_decode_faad.so*
+%_libdir/xine/plugins/%api/xineplug_decode_faad.so*
 %endif
 
 %if %build_xvid
 %files -n %{bname}-xvid
 %defattr(-,root,root)
-%_libdir/xine/plugins/%version/xineplug_decode_xvid.so*
+%_libdir/xine/plugins/%api/xineplug_decode_xvid.so*
 %endif
