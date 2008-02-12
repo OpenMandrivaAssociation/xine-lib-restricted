@@ -205,7 +205,6 @@ Summary: DVD plugin for xine
 Requires: %{bname}-plugins = %version
 
 %description -n %bname-dvdnav
-
 xine-dvdnav provides DVD navigation support (including menus) to the
 Xine media player. By default it only supports DVDs not scrambled with
 CSS.
