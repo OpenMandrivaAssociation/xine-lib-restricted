@@ -1,5 +1,5 @@
 %define version 1.1.10.1
-%define release %mkrel 4
+%define release %mkrel 5
 %define name    xine-lib
 %define major 1
 %define api 1.1.10
@@ -102,7 +102,6 @@ Release:     %{release}
 License:     GPL
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
-Patch3:      xine-lib-1.1.4-CVE-2008-0486.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
 Buildconflicts: libxine-devel < %version
@@ -423,7 +422,6 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
-%patch3 -p1 -b .cve-2008-0486
 
 %build
 
