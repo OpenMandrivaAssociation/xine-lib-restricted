@@ -1,5 +1,5 @@
 %define version 1.1.11
-%define release %mkrel 1
+%define release %mkrel 2
 %define name    xine-lib
 %define major 1
 %define api 1.20
@@ -178,6 +178,8 @@ Provides:	xine-plugins-win32 xine-win32
 #Obsoletes: %bname-vcdx
 # Plugins are in versioned dir, so require the exact version
 Requires:  %libname = %version
+# provide the plugin API version
+Provides: xine-plugin-api = %api
 
 %description -n %{bname}-plugins
 xine is a free gpl-licensed video player for unix-like systems.
