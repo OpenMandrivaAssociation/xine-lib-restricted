@@ -1,8 +1,8 @@
-%define version 1.1.10.1
-%define release %mkrel 6
+%define version 1.1.11
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
-%define api 1.1.10
+%define api 1.20
 %define build_plf 0
 %define build_optimization 0
 
@@ -495,11 +495,11 @@ rm -rf %buildroot libxine1.lang
 %multiarch_binaries %buildroot%_bindir/xine-config
 %endif
 #clean out unpackaged files
-rm -f %buildroot/%_libdir/xine/plugins/%api/*.la
-rm -f %buildroot/%_libdir/xine/plugins/%api/post/*.la
+rm -f %buildroot/%_libdir/xine/plugins/*/*.la
+rm -f %buildroot/%_libdir/xine/plugins/*/post/*.la
 rm -rf installed-docs
 mv %buildroot/%_datadir/doc/xine-lib installed-docs
-rm -f %buildroot/%_libdir/xine/plugins/%api/xineplug_inp_vcdo.so
+rm -f %buildroot/%_libdir/xine/plugins/*/xineplug_inp_vcdo.so
 
 %find_lang libxine1
 
