@@ -102,6 +102,8 @@ Release:     %{release}
 License:     GPL
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
+# (fc) 1.1.11.1-1mdv reworked pulseaudio backend (Lennart)
+Patch0: xine-pulse-rework.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
 Buildconflicts: libxine-devel < %version
@@ -424,6 +426,7 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
+%patch0 -p1 -b .pulse-rework
 
 %build
 
