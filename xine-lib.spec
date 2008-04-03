@@ -1,5 +1,5 @@
 %define version 1.1.11.1
-%define release %mkrel 1
+%define release %mkrel 2
 %define name    xine-lib
 %define major 1
 %define api 1.20
@@ -104,6 +104,9 @@ Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
 # (fc) 1.1.11.1-1mdv reworked pulseaudio backend (Lennart)
 Patch0: xine-pulse-rework.patch
+#gw from Debian: fix for bug #39768 (regression in quicktime demuxer due to 
+# security update)
+Patch1: xine-lib-fix-quicktime-demuxer.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
 Buildconflicts: libxine-devel < %version
@@ -427,6 +430,7 @@ PLF because it is covered by software patents.
 %prep
 %setup -q
 %patch0 -p1 -b .pulse-rework
+%patch1 -p1
 
 %build
 
