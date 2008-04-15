@@ -1,8 +1,8 @@
-%define version 1.1.11.1
-%define release %mkrel 3
+%define version 1.1.12
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
-%define api 1.20
+%define api 1.21
 %define build_plf 0
 %define build_optimization 0
 
@@ -102,11 +102,6 @@ Release:     %{release}
 License:     GPL
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
-# (fc) 1.1.11.1-1mdv reworked pulseaudio backend (Lennart)
-Patch0: xine-pulse-rework.patch
-#gw from Debian: fix for bug #39768 (regression in quicktime demuxer due to 
-# security update)
-Patch1: xine-lib-fix-quicktime-demuxer.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
 Buildconflicts: libxine-devel < %version
@@ -429,8 +424,6 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
-%patch0 -p1 -b .pulse-rework
-%patch1 -p1
 
 %build
 
@@ -578,6 +571,7 @@ rm -rf $RPM_BUILD_ROOT
 %_libdir/xine/plugins/%api/xineplug_vo_out_syncfb.so
 %_libdir/xine/plugins/%api/xineplug_vo_out_opengl.so
 %_libdir/xine/plugins/%api/xineplug_vo_out_none.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_raw.so
 %if %build_vidix
 %_libdir/xine/plugins/%api/xineplug_vo_out_vidix.so
 %_libdir/xine/plugins/%api/vidix/
@@ -637,10 +631,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc README ChangeLog installed-docs/hackersguide
 %_bindir/xine-config
+%_bindir/xine-list-1.1
 %if %mdkversion >= 1020
 %multiarch %multiarch_bindir/xine-config
 %endif
 %_mandir/man1/xine-config.1*
+%_mandir/man1/xine-list-1.1.1*
 %_libdir/*.la
 %_libdir/*.so
 %_libdir/pkgconfig/libxine.pc
