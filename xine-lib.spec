@@ -505,8 +505,12 @@ rm -f %buildroot/%_libdir/xine/plugins/*/xineplug_inp_vcdo.so
 
 %find_lang libxine1
 
+%if %mdkversion < 200900
 %post -n %libname -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %libname -p /sbin/ldconfig
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
