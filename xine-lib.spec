@@ -1,8 +1,8 @@
-%define version 1.1.12
-%define release %mkrel 2
+%define version 1.1.13
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
-%define api 1.21
+%define api 1.22
 %define build_plf 0
 %define build_optimization 0
 
@@ -199,17 +199,6 @@ Warning: This package was optimized for the build machine and probably won't
 run on other computers.
 %endif 
 
-%package -n %{bname}-dvdnav
-Group: Video
-Summary: DVD plugin for xine
-#Buildrequires: libdvdnav1-devel >= %dvdnav
-#Requires: libdvdnav1 >= %dvdnav
-Requires: %{bname}-plugins = %version
-
-%description -n %bname-dvdnav
-xine-dvdnav provides DVD navigation support (including menus) to the
-Xine media player. By default it only supports DVDs not scrambled with
-CSS.
 
 %package -n %{bname}-wavpack
 Group: Sound
