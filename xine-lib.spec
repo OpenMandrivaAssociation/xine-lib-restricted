@@ -99,7 +99,7 @@ Name:        %{name}
 Summary:     A Free Video Player (Libraries)
 Version:     %{version}
 Release:     %{release}
-License:     GPL
+License:     GPLv2+
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
 URL:         http://xine.sourceforge.net
