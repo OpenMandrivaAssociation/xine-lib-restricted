@@ -1,5 +1,5 @@
 %define version 1.1.15
-%define release %mkrel 1
+%define release %mkrel 2
 %define name    xine-lib
 %define major 1
 %define api 1.24
@@ -102,6 +102,7 @@ Release:     %{release}
 License:     GPLv2+
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
+Patch0:      xine-lib-1.1.15-asm-inline.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
 Buildconflicts: libxine-devel < %version
@@ -153,6 +154,7 @@ BuildRequires: automake1.6
 %else
 BuildRequires: automake1.7
 %endif
+BuildRequires: libffmpeg-static-devel
 
 %description 
 xine is a free gpl-licensed video player for unix-like systems.
@@ -195,8 +197,7 @@ http://plf.zarb.org
 That page is not connected to Mandriva.
 %if %build_optimization
 
-Warning: This package was optimized for the build machine and probably won't 
-run on other computers.
+Warning: This package was optimized for the build machine and probably will not run on other computers.
 %endif 
 
 
@@ -413,6 +414,7 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
+%patch0 -p1 
 
 %build
 
