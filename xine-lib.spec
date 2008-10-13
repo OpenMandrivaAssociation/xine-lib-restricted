@@ -1,5 +1,5 @@
 %define version 1.1.15
-%define release %mkrel 2
+%define release %mkrel 3
 %define name    xine-lib
 %define major 1
 %define api 1.24
@@ -119,10 +119,8 @@ Buildrequires: libgnome-vfs2-devel
 BuildRequires: libmodplug-devel
 BuildRequires: libgdk_pixbuf2.0-devel
 BuildRequires: libwavpack-devel
-%if %mdkversion >= 200710
-BuildRequires: libxcb-devel
-# gw this is a private dep of libxcb-devel
-BuildRequires: libpthread-stubs
+%if %mdvver < 200900
+Buildrequires: libxcb-devel
 %endif
 %if %mdkversion >= 200700
 BuildRequires: libmesaglu-devel
