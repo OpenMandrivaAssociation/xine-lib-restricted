@@ -148,7 +148,7 @@ Buildrequires: libtheora-devel
 Buildrequires: libdirectfb-devel >= 0.9.9
 %endif
 %if %external_ffmpeg
-BuildRequires:	ffmpeg-devel
+BuildRequires: libffmpeg-static-devel
 %endif
 BuildRequires: autoconf2.5
 %if %mdkversion <= 910
@@ -156,7 +156,6 @@ BuildRequires: automake1.6
 %else
 BuildRequires: automake1.7
 %endif
-BuildRequires: libffmpeg-static-devel
 
 %description 
 xine is a free gpl-licensed video player for unix-like systems.
