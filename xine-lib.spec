@@ -9,31 +9,18 @@
 %define build_pulse	1
 %define build_magick	1
 %define build_arts 0
-
-%if %mdkversion < 1010
-%define build_magick	0
+%define build_caca 1
+%if %mdvver > 200900
+%define build_caca 0
 %endif
 
 %define build_theora 1
-%if %mdkversion < 1000
-%define build_theora 0
-%endif
 
 %define build_directfb 0
 %define external_vcdnav 1
 %define build_smb 1
 %define build_alsa 1
 
-%if %mdkversion < 920
-%define build_smb 0
-%endif
-
-%if %mdkversion <= 910
-%define external_vcdnav 0
-%endif
-%if %mdkversion <= 1010
-%define external_vcdnav 0
-%endif
 %define build_vidix 1
 %ifnarch %ix86
 %define build_vidix 0
@@ -58,10 +45,6 @@
 %define external_ffmpeg 0
 %if %{mdkversion} >= 200800
 %define external_ffmpeg 1
-%endif
-%if %mdvver > 200900
-#gw 1.1.15 doesn't build with ffmpeg r15595
-%define external_ffmpeg 0
 %endif
 
 %{?_with_plf: %{expand: %%global build_plf 1}}
@@ -107,11 +90,12 @@ License:     GPLv2+
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
 Patch0:      xine-lib-1.1.15-asm-inline.patch
+#gw from Gentoo:
+Patch1:      xine-lib-1.1.15-ffmpeg.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
 Buildconflicts: libxine-devel < %version
 Buildrequires: aalib-devel
-Buildrequires: libcaca-devel >= 0.99
 Buildrequires: esound-devel
 Buildrequires: libvorbis-devel
 Buildrequires: libspeex-devel
@@ -220,16 +204,18 @@ xine is a free gpl-licensed video player for unix-like systems.
 
 This package contains the SDL video output plugin.
 
+%if %build_caca
 %package -n %{bname}-caca
 Group: Video
 Summary: Caca video output plugin for xine
 Requires: %{bname}-plugins = %version
+Buildrequires: libcaca-devel >= 0.99
 
 %description -n %bname-caca
 xine is a free gpl-licensed video player for unix-like systems.
 
 This package contains the Caca video output plugin.
-
+%endif
 
 %package -n %libname
 Summary:     	A Free Video Player (Libraries)
@@ -413,12 +399,9 @@ PLF because it is covered by software patents.
 %prep
 %setup -q
 %patch0 -p1 
+%patch1 -p1
 
 %build
-
-%if %mdkversion <= 1000
-%define __libtoolize true
-%endif
 
 #gw for flac
 export OGG_LIBS=-logg
@@ -482,9 +465,7 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 
 rm -rf %buildroot libxine1.lang
 %makeinstall_std
-%if %mdkversion >= 1020
 %multiarch_binaries %buildroot%_bindir/xine-config
-%endif
 #clean out unpackaged files
 rm -f %buildroot/%_libdir/xine/plugins/*/*.la
 rm -f %buildroot/%_libdir/xine/plugins/*/post/*.la
@@ -602,11 +583,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc README 
 %_libdir/xine/plugins/%api/xineplug_wavpack.so
 
-
+%if %build_caca
 %files -n %bname-caca
 %defattr(-,root,root)
 %doc README 
 %_libdir/xine/plugins/%api/xineplug_vo_out_caca.so
+%endif
 
 %if %build_magick
 %files -n %{bname}-image
@@ -625,9 +607,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README ChangeLog installed-docs/hackersguide
 %_bindir/xine-config
 %_bindir/xine-list-1.1
-%if %mdkversion >= 1020
 %multiarch %multiarch_bindir/xine-config
-%endif
 %_mandir/man1/xine-config.1*
 %_mandir/man1/xine-list-1.1.1*
 %_libdir/*.la
