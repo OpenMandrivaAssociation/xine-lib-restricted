@@ -59,6 +59,10 @@
 %if %{mdkversion} >= 200800
 %define external_ffmpeg 1
 %endif
+%if %mdvver > 200900
+#gw 1.1.15 doesn't build with ffmpeg r15595
+%define external_ffmpeg 0
+%endif
 
 %{?_with_plf: %{expand: %%global build_plf 1}}
 %if %build_plf
