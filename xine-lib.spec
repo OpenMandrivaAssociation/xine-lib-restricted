@@ -1,5 +1,5 @@
 %define version 1.1.15
-%define release %mkrel 3
+%define release %mkrel 4
 %define name    xine-lib
 %define major 1
 %define api 1.24
@@ -10,9 +10,6 @@
 %define build_magick	1
 %define build_arts 0
 %define build_caca 1
-%if %mdvver > 200900
-%define build_caca 0
-%endif
 
 %define build_theora 1
 
@@ -92,6 +89,7 @@ Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
 Patch0:      xine-lib-1.1.15-asm-inline.patch
 #gw from Gentoo:
 Patch1:      xine-lib-1.1.15-ffmpeg.patch
+Patch2:	     xine-lib-1.1.15-new-caca.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
 Buildconflicts: libxine-devel < %version
@@ -400,6 +398,7 @@ PLF because it is covered by software patents.
 %setup -q
 %patch0 -p1 
 %patch1 -p1
+%patch2 -p1
 
 %build
 
