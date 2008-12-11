@@ -291,7 +291,7 @@ xine is a free gpl-licensed video player for unix-like systems.
 Summary:        ImageMagick plugin for xine
 Group:          Graphics
 Requires:  %{bname}-plugins = %version
-BuildRequires: ImageMagick-devel > 5.5.7.15
+BuildRequires: imagemagick-devel > 5.5.7.15
 
 %description -n %{bname}-image
 xine is a free gpl-licensed video player for unix-like systems.
