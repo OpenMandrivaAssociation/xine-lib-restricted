@@ -1,8 +1,8 @@
-%define version 1.1.15
-%define release %mkrel 5
+%define version 1.1.16
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
-%define api 1.24
+%define api 1.25
 %define build_plf 0
 %define build_optimization 0
 
@@ -86,9 +86,6 @@ Release:     %{release}
 License:     GPLv2+
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
-Patch0:      xine-lib-1.1.15-asm-inline.patch
-#gw from Gentoo:
-Patch1:      xine-lib-1.1.15-ffmpeg.patch
 Patch2:	     xine-lib-1.1.15-new-caca.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
@@ -396,8 +393,6 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
-%patch0 -p1 
-%patch1 -p1
 %patch2 -p1
 
 %build
