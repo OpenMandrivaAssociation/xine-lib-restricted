@@ -40,7 +40,8 @@
 %endif
 
 %define external_ffmpeg 0
-%if %{mdkversion} >= 200800
+#gw 1.1.16 doesn't build with ffmpeg from 2009.0
+%if %{mdkversion} >= 200910
 %define external_ffmpeg 1
 %endif
 
