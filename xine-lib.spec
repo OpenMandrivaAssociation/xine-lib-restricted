@@ -1,4 +1,4 @@
-%define version 1.1.16
+%define version 1.1.16.1
 %define release %mkrel 1
 %define name    xine-lib
 %define major 1
@@ -86,8 +86,6 @@ Release:     %{release}
 License:     GPLv2+
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
-# gw from Debian: fix ffmpeg build on 2009.0
-Patch: xine-lib-c20ec3a8802d8f71d4ad9dc26a413716efe2d71a-fix-ffmpeg-build.patch
 Patch2:	     xine-lib-1.1.15-new-caca.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
@@ -395,7 +393,6 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
-%patch -p1
 %patch2 -p1
 
 %build
