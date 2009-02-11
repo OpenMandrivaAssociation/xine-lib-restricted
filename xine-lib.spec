@@ -1,5 +1,5 @@
-%define version 1.1.16.1
-%define release %mkrel 2
+%define version 1.1.16.2
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
 %define api 1.25
