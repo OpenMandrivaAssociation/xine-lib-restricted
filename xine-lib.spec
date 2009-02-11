@@ -372,6 +372,7 @@ PLF because it is covered by software patents.
 Summary:     	FAAD plugin for %{bname}
 Group: 	Sound
 Requires:  %{bname}-plugins = %version
+BuildRequires: libfaad2-devel
 
 %description -n %{bname}-faad
 This package contains the AAC decoder plugin for %{bname}. It is in
