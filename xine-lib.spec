@@ -1,8 +1,8 @@
-%define version 1.1.16.2
+%define version 1.1.16.3
 %define release %mkrel 1
 %define name    xine-lib
 %define major 1
-%define api 1.25
+%define api 1.26
 %define build_plf 0
 %define build_optimization 0
 
