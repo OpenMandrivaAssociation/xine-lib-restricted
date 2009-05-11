@@ -423,9 +423,7 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 	--mandir=%{_mandir} \
 	--infodir=%{_datadir}/info \
 %endif
-%if %external_vcdnav
-  --with-external-vcdnav \
-%else
+%if ! %external_vcdnav
   --with-internal-vcdlibs \
 %endif
 %if %build_directfb
