@@ -1,8 +1,8 @@
-%define version 1.1.16.3
-%define release %mkrel 3
+%define version 1.1.17
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
-%define api 1.26
+%define api 1.27
 %define build_plf 0
 %define build_optimization 0
 
@@ -86,7 +86,6 @@ Release:     %{release}
 License:     GPLv2+
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
-Patch: xine-lib-1.1.16.3-mime-types.patch
 Patch2:	     xine-lib-1.1.15-new-caca.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
@@ -395,7 +394,6 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
-%patch -p1
 %patch2 -p1
 
 %build
