@@ -1,8 +1,8 @@
-%define version 1.1.17
-%define release %mkrel 2
+%define version 1.1.18
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
-%define api 1.27
+%define api 1.28
 %define build_plf 0
 %define build_optimization 0
 
@@ -86,6 +86,8 @@ Release:     %{release}
 License:     GPLv2+
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
+#gw missing from the tarball:
+Source1:      compat.c
 Patch2:	     xine-lib-1.1.15-new-caca.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
@@ -102,6 +104,7 @@ Buildrequires: libgnome-vfs2-devel
 BuildRequires: libmodplug-devel
 BuildRequires: libgdk_pixbuf2.0-devel
 BuildRequires: libwavpack-devel
+BuildRequires: libv4l-devel
 %if %mdvver < 200900
 Buildrequires: libxcb-devel
 %endif
@@ -394,6 +397,7 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
+cp -n %SOURCE1 src/dxr3/
 %patch2 -p1
 
 %build
@@ -507,6 +511,7 @@ rm -rf $RPM_BUILD_ROOT
 %_libdir/xine/plugins/%api/xineplug_inp_rtsp.so
 %_libdir/xine/plugins/%api/xineplug_inp_vcd.so
 %_libdir/xine/plugins/%api/xineplug_inp_v4l.so
+%_libdir/xine/plugins/%api/xineplug_inp_v4l2.so
 %_libdir/xine/plugins/%api/xineplug_dmx_*so
 %_libdir/xine/plugins/%api/xineplug_decode_a52.so
 %_libdir/xine/plugins/%api/xineplug_decode_bitplane.so
