@@ -1,4 +1,4 @@
-%define version 1.1.18
+%define version 1.1.18.1
 %define release %mkrel 1
 %define name    xine-lib
 %define major 1
