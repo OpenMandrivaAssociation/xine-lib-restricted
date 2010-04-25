@@ -1,5 +1,5 @@
 %define version 1.1.18.1
-%define release %mkrel 2
+%define release %mkrel 3
 %define name    xine-lib
 %define major 1
 %define api 1.28
@@ -86,8 +86,8 @@ Release:     %{release}
 License:     GPLv2+
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
-#gw missing from the tarball:
-Source1:      compat.c
+#gw support /usr/lib64/codecs dir
+Patch0: xine-lib-1.1.18.1-usr-lib64-codecs.patch
 Patch2:	     xine-lib-1.1.15-new-caca.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
@@ -397,8 +397,7 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
-cp -n %SOURCE1 src/dxr3/
-%patch2 -p1
+%apply_patches
 
 %build
 
