@@ -1,5 +1,5 @@
 %define version 1.1.18.1
-%define release %mkrel 1
+%define release %mkrel 2
 %define name    xine-lib
 %define major 1
 %define api 1.28
@@ -451,7 +451,7 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 %if %external_ffmpeg
   --with-external-ffmpeg \
 %endif
- --enable-ipv6 --with-libflac --with-wavpack --with-w32-path=%{_libdir}/win32
+ --enable-ipv6 --with-libflac --with-wavpack --with-w32-path=%{_libdir}/codecs
 # real-codecs-path is not set so that runtime searching is used. We want
 # to use either codecs from RealPlayer or real-codecs, whichever is
 # present.
