@@ -1,8 +1,8 @@
-%define version 1.1.18.1
-%define release %mkrel 4
+%define version 1.1.19
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
-%define api 1.28
+%define api 1.29
 %define build_plf 0
 %define build_optimization 0
 
@@ -86,8 +86,6 @@ Release:     %{release}
 License:     GPLv2+
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
-#gw support /usr/lib64/codecs dir
-Patch0: xine-lib-1.1.18.1-usr-lib64-codecs.patch
 Patch2:	     xine-lib-1.1.15-new-caca.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
