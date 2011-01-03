@@ -1,5 +1,5 @@
 %define version 1.1.19
-%define release %mkrel 1
+%define release %mkrel 2
 %define name    xine-lib
 %define major 1
 %define api 1.29
@@ -131,7 +131,7 @@ Buildrequires: libdirectfb-devel >= 0.9.9
 BuildRequires: libffmpeg-static-devel
 %endif
 BuildRequires: autoconf2.5
-BuildRequires: automake1.7
+BuildRequires: automake
 
 
 %description 
