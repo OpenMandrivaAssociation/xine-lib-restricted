@@ -86,6 +86,7 @@ Release:     %{release}
 License:     GPLv2+
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
+Patch0:      xine-lib-1.1.19-missing-header.patch
 Patch2:	     xine-lib-1.1.15-new-caca.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
