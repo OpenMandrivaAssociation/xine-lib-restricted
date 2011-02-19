@@ -48,6 +48,10 @@
 %if %build_plf
 %define distsuffix plf
 %define build_faad 1
+%if %mdvver >= 201100
+# make EVR of plf build higher than regular to allow update, needed with rpm5 mkrel
+%define extrarelsuffix plf
+%endif
 %endif
 %{?_with_optimization: %{expand: %%global build_optimization 1}}
 %{?_with_theora: %{expand: %%global build_theora 1}}
@@ -82,7 +86,7 @@
 Name:        %{name}
 Summary:     A Free Video Player (Libraries)
 Version:     %{version}
-Release:     %{release}
+Release:     %{release}%{?extrarelsuffix}
 License:     GPLv2+
 Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
