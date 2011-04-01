@@ -1,5 +1,5 @@
 %define version 1.1.19
-%define release %mkrel 2
+%define release %mkrel 3
 %define name    xine-lib
 %define major 1
 %define api 1.29
@@ -92,6 +92,7 @@ Group:       System/Libraries
 Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
 Patch0:      xine-lib-1.1.19-missing-header.patch
 Patch2:	     xine-lib-1.1.15-new-caca.patch
+Patch3:      xine-lib-1.1.19-kernel-2.6.38.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
 Buildconflicts: libxine-devel < %version
@@ -401,6 +402,7 @@ PLF because it is covered by software patents.
 %prep
 %setup -q
 %apply_patches
+autoreconf -fi
 
 %build
 
