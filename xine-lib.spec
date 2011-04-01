@@ -96,6 +96,7 @@ Patch3:      xine-lib-1.1.19-kernel-2.6.38.patch
 URL:         http://xine.sourceforge.net
 BuildRoot:   %_tmppath/%{name}-buildroot
 Buildconflicts: libxine-devel < %version
+BuildRequires: gettext-devel
 Buildrequires: aalib-devel
 Buildrequires: esound-devel
 Buildrequires: libvorbis-devel
