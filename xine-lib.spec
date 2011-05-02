@@ -1,5 +1,5 @@
 %define version 1.1.19
-%define release %mkrel 3
+%define release %mkrel 4
 %define name    xine-lib
 %define major 1
 %define api 1.29
@@ -467,7 +467,9 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 
 rm -rf %buildroot libxine1.lang
 %makeinstall_std
+
 %multiarch_binaries %buildroot%_bindir/xine-config
+
 #clean out unpackaged files
 rm -f %buildroot/%_libdir/xine/plugins/*/*.la
 rm -f %buildroot/%_libdir/xine/plugins/*/post/*.la
@@ -610,7 +612,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README ChangeLog installed-docs/hackersguide
 %_bindir/xine-config
 %_bindir/xine-list-1.1
-%multiarch %multiarch_bindir/xine-config
+%multiarch_bindir/xine-config
 %_mandir/man1/xine-config.1*
 %_mandir/man1/xine-list-1.1.1*
 %_libdir/*.la
