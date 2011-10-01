@@ -657,7 +657,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README 
 %_libdir/xine/plugins/%api/xineplug_flac.so
 
-%ifarch %{ix86} x86_64 ppc
+%ifarch %{ix86} x86_64 ppc arm
 %files -n %{bname}-dxr3
 %defattr(-,root,root)
 %doc README 
