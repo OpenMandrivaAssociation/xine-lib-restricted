@@ -135,7 +135,11 @@ Buildrequires: libtheora-devel
 Buildrequires: libdirectfb-devel >= 0.9.9
 %endif
 %if %external_ffmpeg
+%if %mdvver >= 201200
+BuildRequires: ffmpeg0.7-static-devel
+%else
 BuildRequires: libffmpeg-static-devel
+%endif
 %endif
 BuildRequires: autoconf2.5
 BuildRequires: automake
