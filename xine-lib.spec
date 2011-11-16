@@ -1,5 +1,5 @@
-%define version 1.1.19
-%define release %mkrel 5
+%define version 1.1.20
+%define release %mkrel 1
 %define name    xine-lib
 %define major 1
 %define api 1.29
@@ -89,7 +89,7 @@ Version:     %{version}
 Release:     %{release}%{?extrarelsuffix}
 License:     GPLv2+
 Group:       System/Libraries
-Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.bz2
+Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.xz
 Patch0:      xine-lib-1.1.19-missing-header.patch
 Patch2:	     xine-lib-1.1.15-new-caca.patch
 Patch3:      xine-lib-1.1.19-kernel-2.6.38.patch
