@@ -491,7 +491,7 @@ rm -f %buildroot/%_libdir/xine/plugins/*/xineplug_inp_vcdo.so
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files -n %{bname}-plugins -f libxine1.lang
 %defattr(-,root,root)
