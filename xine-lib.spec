@@ -2,7 +2,7 @@
 %define release %mkrel 1
 %define name    xine-lib
 %define major 1
-%define api 1.29
+%define api 1.30
 %define build_plf 0
 %define build_optimization 0
 
