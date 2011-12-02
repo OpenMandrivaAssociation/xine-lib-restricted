@@ -1,5 +1,5 @@
 %define version 1.1.20
-%define release %mkrel 1
+%define release %mkrel 2
 %define name    xine-lib
 %define major 1
 %define api 1.30
@@ -39,10 +39,7 @@
 %define build_win32 1
 %endif
 
-%define external_ffmpeg 0
-%if %{mdkversion} >= 200800
 %define external_ffmpeg 1
-%endif
 
 %{?_with_plf: %{expand: %%global build_plf 1}}
 %if %build_plf
@@ -110,18 +107,10 @@ BuildRequires: libmodplug-devel
 BuildRequires: libgdk_pixbuf2.0-devel
 BuildRequires: libwavpack-devel
 BuildRequires: libv4l-devel
-%if %mdvver < 200900
-Buildrequires: libxcb-devel
-%endif
-%if %mdkversion >= 200700
 BuildRequires: libmesaglu-devel
 BuildRequires: libxv-devel
 BuildRequires: libxvmc-devel
 BuildRequires: libxinerama-devel
-%else
-BuildRequires: libMesaGLU-devel
-BuildRequires: X11-devel
-%endif
 %if %build_smb
 BuildRequires:	libsmbclient-devel > 2.2.8a-7mdk 
 %endif
@@ -135,12 +124,10 @@ Buildrequires: libtheora-devel
 Buildrequires: libdirectfb-devel >= 0.9.9
 %endif
 %if %external_ffmpeg
-%if %mdvver >= 201200
-BuildRequires: ffmpeg0.7-static-devel
-%else
-BuildRequires: libffmpeg-static-devel
+BuildRequires: libffmpeg-devel
 %endif
-%endif
+BuildRequires: libmpcdec-devel
+
 BuildRequires: autoconf2.5
 BuildRequires: automake
 
@@ -460,7 +447,8 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 %if %external_ffmpeg
   --with-external-ffmpeg \
 %endif
- --enable-ipv6 --with-libflac --with-wavpack --with-w32-path=%{_libdir}/codecs
+ --enable-ipv6 --with-libflac --with-wavpack --with-w32-path=%{_libdir}/codecs \
+ --with-external-libmpcdec
 # real-codecs-path is not set so that runtime searching is used. We want
 # to use either codecs from RealPlayer or real-codecs, whichever is
 # present.
