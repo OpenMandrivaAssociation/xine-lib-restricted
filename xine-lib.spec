@@ -105,7 +105,7 @@ Buildrequires: libjack-devel
 Buildrequires: libSDL-devel
 Buildrequires: libmng-devel
 Buildrequires: libflac-devel
-Buildrequires: libgnome-vfs2-devel
+Buildrequires: gnome-vfs2-devel
 BuildRequires: libmodplug-devel
 BuildRequires: libgdk_pixbuf2.0-devel
 BuildRequires: libwavpack-devel
