@@ -98,7 +98,7 @@ Buildrequires: aalib-devel
 Buildrequires: esound-devel
 Buildrequires: libvorbis-devel
 Buildrequires: libspeex-devel
-Buildrequires: libjack-devel
+Buildrequires: jackit-devel
 Buildrequires: libSDL-devel
 Buildrequires: mng-devel
 Buildrequires: libflac-devel
