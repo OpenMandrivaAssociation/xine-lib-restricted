@@ -607,7 +607,9 @@ rm -rf %{buildroot}
 %multiarch_bindir/xine-config
 %_mandir/man1/xine-config.1*
 %_mandir/man1/xine-list-1.1.1*
+%if %mdvver >= 201200
 %_libdir/*.la
+%endif
 %_libdir/*.so
 %_libdir/pkgconfig/libxine.pc
 %_datadir/aclocal/xine.m4
