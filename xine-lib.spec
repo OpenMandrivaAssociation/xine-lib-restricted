@@ -100,7 +100,7 @@ Buildrequires: libvorbis-devel
 Buildrequires: libspeex-devel
 Buildrequires: libjack-devel
 Buildrequires: libSDL-devel
-Buildrequires: libmng-devel
+Buildrequires: mng-devel
 Buildrequires: libflac-devel
 Buildrequires: gnome-vfs2-devel
 BuildRequires: libmodplug-devel
