@@ -1,8 +1,8 @@
-%define version 1.1.20.1
-%define release %mkrel 1
+%define version 1.2.1
+%define release 1
 %define name    xine-lib
-%define major 1
-%define api 1.30
+%define major 2
+%define api 2.1
 %define build_plf 0
 %define build_optimization 0
 
@@ -10,8 +10,6 @@
 %define build_magick	1
 %define build_arts 0
 %define build_caca 1
-
-%define build_theora 1
 
 %define build_directfb 0
 %define external_vcdnav 1
@@ -51,8 +49,6 @@
 %endif
 %endif
 %{?_with_optimization: %{expand: %%global build_optimization 1}}
-%{?_with_theora: %{expand: %%global build_theora 1}}
-%{?_without_theora: %{expand: %%global build_theora 0}}
 %{?_with_directfb: %{expand: %%global build_directfb 1}}
 %{?_without_directfb: %{expand: %%global build_directfb 0}}
 %{?_with_alsa: %{expand: %%global build_alsa 1}}
@@ -86,12 +82,9 @@ Version:     %{version}
 Release:     %{release}%{?extrarelsuffix}
 License:     GPLv2+
 Group:       System/Libraries
-Source0:      http://prdownloads.sourceforge.net/xine/%name-%version.tar.xz
-Patch0:      xine-lib-1.1.19-missing-header.patch
-Patch2:	     xine-lib-1.1.15-new-caca.patch
-Patch3:      xine-lib-1.1.19-kernel-2.6.38.patch
+Source0:     http://downloads.sourceforge.net/project/xine/xine-lib/%version/xine-lib-%version.tar.xz
+Patch1:      xine-lib-1.2.1-ffmpeg-0.11.patch
 URL:         http://xine.sourceforge.net
-BuildRoot:   %_tmppath/%{name}-buildroot
 Buildconflicts: libxine-devel < %version
 BuildRequires: gettext-devel
 Buildrequires: aalib-devel
@@ -117,14 +110,11 @@ BuildRequires:	libsmbclient-devel > 2.2.8a-7mdk
 %if %external_vcdnav
 BuildRequires: libvcd-devel >= 0.7.19
 %endif
-%if %build_theora
-Buildrequires: libtheora-devel
-%endif
 %if %build_directfb
 Buildrequires: libdirectfb-devel >= 0.9.9
 %endif
 %if %external_ffmpeg
-BuildRequires: libffmpeg-devel
+BuildRequires: %mklibname ffmpeg -d
 %endif
 BuildRequires: libmpcdec-devel
 
@@ -274,7 +264,7 @@ Group:          Sound
 Requires:  %{bname}-plugins = %version
 Provides: %bname-polyp
 Obsoletes: %bname-polyp
-BuildRequires: libpulseaudio-devel
+BuildRequires: pkgconfig(libpulse)
 
 %description -n %{bname}-pulse
 xine is a free gpl-licensed video player for unix-like systems.
@@ -456,8 +446,6 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 %make
 
 %install
-
-rm -rf %buildroot libxine1.lang
 %makeinstall_std
 
 %multiarch_binaries %buildroot%_bindir/xine-config
@@ -469,7 +457,7 @@ rm -rf installed-docs
 mv %buildroot/%_datadir/doc/xine-lib installed-docs
 rm -f %buildroot/%_libdir/xine/plugins/*/xineplug_inp_vcdo.so
 
-%find_lang libxine1
+%find_lang libxine2 || touch libxine2.lang
 
 %if %mdkversion < 200900
 %post -n %libname -p /sbin/ldconfig
@@ -481,7 +469,7 @@ rm -f %buildroot/%_libdir/xine/plugins/*/xineplug_inp_vcdo.so
 %clean
 rm -rf %{buildroot}
 
-%files -n %{bname}-plugins -f libxine1.lang
+%files -n %{bname}-plugins -f libxine2.lang
 %defattr(-,root,root)
 %doc installed-docs/README* installed-docs/faq.*
 %_mandir/man5/xine.5*
@@ -509,7 +497,6 @@ rm -rf %{buildroot}
 %_libdir/xine/plugins/%api/xineplug_inp_rtp.so
 %_libdir/xine/plugins/%api/xineplug_inp_rtsp.so
 %_libdir/xine/plugins/%api/xineplug_inp_vcd.so
-%_libdir/xine/plugins/%api/xineplug_inp_v4l.so
 %_libdir/xine/plugins/%api/xineplug_inp_v4l2.so
 %_libdir/xine/plugins/%api/xineplug_dmx_*so
 %_libdir/xine/plugins/%api/xineplug_decode_a52.so
@@ -523,23 +510,27 @@ rm -rf %{buildroot}
 %_libdir/xine/plugins/%api/xineplug_decode_mad.so
 %_libdir/xine/plugins/%api/xineplug_decode_mpc.so*
 %_libdir/xine/plugins/%api/xineplug_decode_mpeg2.so
-%_libdir/xine/plugins/%api/xineplug_decode_nsf.so
 %_libdir/xine/plugins/%api/xineplug_decode_spu*.so
 %_libdir/xine/plugins/%api/xineplug_decode_real.so
 %_libdir/xine/plugins/%api/xineplug_decode_rgb.so
-%_libdir/xine/plugins/%api/xineplug_decode_speex.so
-%if %build_theora
-%_libdir/xine/plugins/%api/xineplug_decode_theora.so
-%endif
-%_libdir/xine/plugins/%api/xineplug_decode_vorbis.so
 %_libdir/xine/plugins/%api/xineplug_decode_yuv.so
+%_libdir/xine/plugins/%api/xineplug_decode_vdpau_h264.so
+%_libdir/xine/plugins/%api/xineplug_decode_vdpau_h264_alter.so
+%_libdir/xine/plugins/%api/xineplug_decode_vdpau_mpeg12.so
+%_libdir/xine/plugins/%api/xineplug_decode_vdpau_mpeg4.so
+%_libdir/xine/plugins/%api/xineplug_decode_vdpau_vc1.so
+%_libdir/xine/plugins/%api/xineplug_inp_bluray.so
+%_libdir/xine/plugins/%api/xineplug_nsf.so
+%_libdir/xine/plugins/%api/xineplug_sputext.so
+%_libdir/xine/plugins/%api/xineplug_vdr.so
+%_libdir/xine/plugins/%api/xineplug_vo_out_vdpau.so
+%_libdir/xine/plugins/%api/xineplug_xiph.so
 %if %build_directfb
 %_libdir/xine/plugins/%api/xineplug_vo_out_directfb.so
 %endif
 %if %build_linuxfb
 %_libdir/xine/plugins/%api/xineplug_vo_out_fb.so
 %endif
-%_libdir/xine/plugins/%api/xineplug_vo_out_syncfb.so
 %_libdir/xine/plugins/%api/xineplug_vo_out_opengl.so
 %_libdir/xine/plugins/%api/xineplug_vo_out_none.so
 %_libdir/xine/plugins/%api/xineplug_vo_out_raw.so
@@ -568,7 +559,7 @@ rm -rf %{buildroot}
 %_libdir/xine/plugins/%api/post/xineplug_post_switch.so
 %_libdir/xine/plugins/%api/post/xineplug_post_tvtime.so
 %_libdir/xine/plugins/%api/post/xineplug_post_visualizations.so
-%_datadir/xine
+%_datadir/xine-lib
 
 %files -n %bname-sdl
 %defattr(-,root,root)
@@ -603,10 +594,10 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc README ChangeLog installed-docs/hackersguide
 %_bindir/xine-config
-%_bindir/xine-list-1.1
+%_bindir/xine-list-1.2
 %multiarch_bindir/xine-config
 %_mandir/man1/xine-config.1*
-%_mandir/man1/xine-list-1.1.1*
+%_mandir/man1/xine-list-1.2.1*
 %if %mdvver < 201200
 %_libdir/*.la
 %endif
