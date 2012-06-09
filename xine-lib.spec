@@ -88,33 +88,33 @@ URL:         http://xine.sourceforge.net
 Buildconflicts: libxine-devel < %version
 BuildRequires: gettext-devel
 Buildrequires: aalib-devel
-Buildrequires: esound-devel
-Buildrequires: libvorbis-devel
-Buildrequires: libspeex-devel
-Buildrequires: jackit-devel
-Buildrequires: libSDL-devel
+Buildrequires: pkgconfig(esound)
+Buildrequires: pkgconfig(vorbis) pkgconfig(vorbisfile)
+Buildrequires: pkgconfig(speex)
+Buildrequires: pkgconfig(jack)
+Buildrequires: pkgconfig(sdl)
 Buildrequires: mng-devel
-Buildrequires: libflac-devel
-Buildrequires: gnome-vfs2-devel
-BuildRequires: libmodplug-devel
-BuildRequires: libgdk_pixbuf2.0-devel
-BuildRequires: libwavpack-devel
-BuildRequires: libv4l-devel
-BuildRequires: libmesaglu-devel
-BuildRequires: libxv-devel
-BuildRequires: libxvmc-devel
-BuildRequires: libxinerama-devel
+Buildrequires: pkgconfig(flac)
+Buildrequires: pkgconfig(gnome-vfs-2.0)
+BuildRequires: pkgconfig(libmodplug)
+BuildRequires: pkgconfig(gdk-pixbuf-2.0)
+BuildRequires: pkgconfig(wavpack)
+BuildRequires: pkgconfig(libv4l2)
+BuildRequires: pkgconfig(glu)
+BuildRequires: pkgconfig(xv)
+BuildRequires: pkgconfig(xvmc)
+BuildRequires: pkgconfig(xinerama)
 %if %build_smb
-BuildRequires:	libsmbclient-devel > 2.2.8a-7mdk 
+BuildRequires: pkgconfig(smbclient)
 %endif
 %if %external_vcdnav
-BuildRequires: libvcd-devel >= 0.7.19
+BuildRequires: pkgconfig(libvcdinfo)
 %endif
 %if %build_directfb
-Buildrequires: libdirectfb-devel >= 0.9.9
+Buildrequires: pkgconfig(directfb)
 %endif
 %if %external_ffmpeg
-BuildRequires: %mklibname ffmpeg -d
+BuildRequires: pkgconfig(libavcodec)
 %endif
 BuildRequires: libmpcdec-devel
 
