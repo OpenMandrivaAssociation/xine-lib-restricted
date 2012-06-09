@@ -104,6 +104,8 @@ BuildRequires: pkgconfig(glu)
 BuildRequires: pkgconfig(xv)
 BuildRequires: pkgconfig(xvmc)
 BuildRequires: pkgconfig(xinerama)
+BuildRequires: pkgconfig(vdpau)
+BuildRequires: pkgconfig(libbluray)
 %if %build_smb
 BuildRequires: pkgconfig(smbclient)
 %endif
