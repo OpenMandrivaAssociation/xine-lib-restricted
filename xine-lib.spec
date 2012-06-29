@@ -2,7 +2,7 @@
 %define release 1
 %define name    xine-lib
 %define major 2
-%define api 2.1
+%define api 2.2
 %define build_plf 0
 %define build_optimization 0
 
@@ -83,7 +83,6 @@ Release:     %{release}%{?extrarelsuffix}
 License:     GPLv2+
 Group:       System/Libraries
 Source0:     http://downloads.sourceforge.net/project/xine/xine-lib/%version/xine-lib-%version.tar.xz
-Patch1:      xine-lib-1.2.1-ffmpeg-0.11.patch
 URL:         http://xine.sourceforge.net
 Buildconflicts: libxine-devel < %version
 BuildRequires: gettext-devel
@@ -385,8 +384,6 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
-%apply_patches
-autoreconf -fi
 
 %build
 
