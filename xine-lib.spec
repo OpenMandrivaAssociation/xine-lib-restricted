@@ -1,13 +1,9 @@
-%define version 1.2.2
-%define release 1
-%define name    xine-lib
 %define major 2
 %define api 2.2
-%define build_plf 0
 %define build_optimization 0
 
-%define build_pulse	1
-%define build_magick	1
+%define build_pulse 1
+%define build_magick 1
 %define build_arts 0
 %define build_caca 1
 
@@ -23,7 +19,7 @@
 
 %define build_linuxfb 1
 
-%define libname		%mklibname xine %major
+%define libname		%mklibname xine %{major}
 %define libnamedev	%mklibname -d xine
 
 %define bname xine
@@ -33,21 +29,25 @@
 %define build_xvid 0
 %define build_faad 0
 %define build_win32 0
-%ifarch %ix86
+%ifarch %{ix86}
 %define build_win32 1
 %endif
 
 %define external_ffmpeg 1
 
 %{?_with_plf: %{expand: %%global build_plf 1}}
-%if %build_plf
+
+######################
+# Hardcode PLF build
+%define build_plf 0
+######################
+
+%if %{build_plf}
 %define distsuffix plf
 %define build_faad 1
-%if %mdvver >= 201100
-# make EVR of plf build higher than regular to allow update, needed with rpm5 mkrel
 %define extrarelsuffix plf
 %endif
-%endif
+
 %{?_with_optimization: %{expand: %%global build_optimization 1}}
 %{?_with_directfb: %{expand: %%global build_directfb 1}}
 %{?_without_directfb: %{expand: %%global build_directfb 0}}
@@ -76,148 +76,138 @@
 %{?_with_ffmpeg: %{expand: %%global external_ffmpeg 1}}
 %{?_without_ffmpeg: %{expand: %%global external_ffmpeg 0}}
 
-Name:        %{name}
-Summary:     A Free Video Player (Libraries)
-Version:     %{version}
-Release:     %{release}%{?extrarelsuffix}
-License:     GPLv2+
-Group:       System/Libraries
-Source0:     http://downloads.sourceforge.net/project/xine/xine-lib/%version/xine-lib-%version.tar.xz
-URL:         http://xine.sourceforge.net
-Buildconflicts: libxine-devel < %version
-BuildRequires: gettext-devel
-Buildrequires: aalib-devel
-Buildrequires: pkgconfig(esound)
-Buildrequires: pkgconfig(vorbis) pkgconfig(vorbisfile)
-Buildrequires: pkgconfig(speex)
-Buildrequires: pkgconfig(jack)
-Buildrequires: pkgconfig(sdl)
-Buildrequires: mng-devel
-Buildrequires: pkgconfig(flac)
-Buildrequires: pkgconfig(gnome-vfs-2.0)
-BuildRequires: pkgconfig(libmodplug)
-BuildRequires: pkgconfig(gdk-pixbuf-2.0)
-BuildRequires: pkgconfig(wavpack)
-BuildRequires: pkgconfig(libv4l2)
-BuildRequires: pkgconfig(glu)
-BuildRequires: pkgconfig(xv)
-BuildRequires: pkgconfig(xvmc)
-BuildRequires: pkgconfig(xinerama)
-BuildRequires: pkgconfig(vdpau)
-BuildRequires: pkgconfig(libbluray)
-%if %build_smb
-BuildRequires: pkgconfig(smbclient)
+Name:		xine-lib
+Summary:	A Free Video Player (Libraries)
+Version:	1.2.2
+Release:	2%{?extrarelsuffix}
+License:	GPLv2+
+Group:		System/Libraries
+Source0:	http://downloads.sourceforge.net/project/xine/xine-lib/%{version}/xine-lib-%{version}.tar.xz
+URL:		http://xine.sourceforge.net
+BuildConflicts:	pkgconfig(libxine) < %{version}
+BuildRequires:	gettext-devel
+BuildRequires:	aalib-devel
+BuildRequires:	pkgconfig(esound)
+BuildRequires:	pkgconfig(vorbis)
+BuildRequires:	pkgconfig(vorbisfile)
+BuildRequires:	pkgconfig(speex)
+BuildRequires:	pkgconfig(jack)
+Buildrequires:	pkgconfig(sdl)
+Buildrequires:	mng-devel
+BuildRequires:	pkgconfig(flac)
+BuildRequires:	pkgconfig(gnome-vfs-2.0)
+BuildRequires:	pkgconfig(libmodplug)
+BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:	pkgconfig(wavpack)
+BuildRequires:	pkgconfig(libv4l2)
+BuildRequires:	pkgconfig(glu)
+BuildRequires:	pkgconfig(xv)
+BuildRequires:	pkgconfig(xvmc)
+BuildRequires:	pkgconfig(xinerama)
+BuildRequires:	pkgconfig(vdpau)
+BuildRequires:	pkgconfig(libbluray)
+%if %{build_smb}
+BuildRequires:	pkgconfig(smbclient)
 %endif
-%if %external_vcdnav
-BuildRequires: pkgconfig(libvcdinfo)
+%if %{external_vcdnav}
+BuildRequires:	pkgconfig(libvcdinfo)
 %endif
-%if %build_directfb
-Buildrequires: pkgconfig(directfb)
+%if %{build_directfb}
+Buildrequires:	pkgconfig(directfb)
 %endif
-%if %external_ffmpeg
-BuildRequires: pkgconfig(libavcodec)
+%if %{external_ffmpeg}
+BuildRequires:	pkgconfig(libavcodec)
 %endif
-BuildRequires: libmpcdec-devel
+BuildRequires:	libmpcdec-devel
 
-BuildRequires: autoconf2.5
-BuildRequires: automake
+BuildRequires:	autoconf2.5
+BuildRequires:	automake
 
-
-%description 
+%description
 xine is a free gpl-licensed video player for unix-like systems.
-%if %build_plf
-This package is in PLF because the AAC decoder is covered by patents.
+%if %{build_plf}
+This package is in restricted repository because the AAC decoder is
+covered by patents.
 %endif
-
 
 %package -n %{bname}-plugins
-Summary:     	A Free Video Player (main plugins)
-Group: 		Video
-Provides: %bname-xv %bname-gl %bname-oss %libname-docs %bname-speex
-Provides:  %bname-dvdnav %bname-alsa %bname-musepack
-Obsoletes: %bname-xv %bname-gl %bname-oss %libname-docs %bname-speex
-Obsoletes: %bname-dvdnav %bname-alsa %bname-musepack
-%if %build_win32
-Obsoletes:	xine-plugins-win32 xine-win32
-Provides:	xine-plugins-win32 xine-win32
+Summary:	A Free Video Player (main plugins)
+Group:		Video
+Provides:	%{bname}-xv %{bname}-gl %{bname}-oss %{libname}-docs %{bname}-speex
+Provides:	%{bname}-dvdnav %{bname}-alsa %{bname}-musepack
+%if %{build_win32}
+Provides:	xine-plugins-win32
+Provides:	xine-win32
 #Suggests: win32-codecs
 %endif
 #gw enable this once the cdda plugin from xine-vcdx was merged too
-#Provides: %bname-vcdx
-#Obsoletes: %bname-vcdx
+#Provides: %{bname}-vcdx
+#Obsoletes: %{bname}-vcdx
 # Plugins are in versioned dir, so require the exact version
-Requires:  %libname = %version
+Requires:	%{libname} = %{version}
 # provide the plugin API version
-Provides: xine-plugin-api = %api
+Provides:	xine-plugin-api = %{api}
 
 %description -n %{bname}-plugins
 xine is a free gpl-licensed video player for unix-like systems.
 
 This package includes the main plugins for xine, they allow the input
 from files, Video CDs, network streams and (not encrypted) DVDs in
-several video formats.  For additional plugins (support for DVDs
-protected by CSS or for non free codecs) you could try the packages
-from the Penguin Liberation Front home page:
+several video formats.
 
-http://plf.zarb.org
-
-That page is not connected to Mandriva.
-%if %build_optimization
-
-Warning: This package was optimized for the build machine and probably will not run on other computers.
-%endif 
-
+%if %{build_optimization}
+Warning: This package was optimized for the build machine and probably
+will not run on other computers.
+%endif
 
 %package -n %{bname}-wavpack
-Group: Sound
-Summary: Wavpack Audio decoder plugin for xine
-Requires: %{bname}-plugins = %version
+Group:		Sound
+Summary:	Wavpack Audio decoder plugin for xine
+Requires:	%{bname}-plugins = %{version}
 
-%description -n %bname-wavpack
+%description -n %{bname}-wavpack
 xine is a free gpl-licensed video player for unix-like systems.
 
 This package contains the wavpack audio decoder plugin.
 
-
 %package -n %{bname}-sdl
-Group: Video
-Summary: SDL video output plugin for xine
-Requires: %{bname}-plugins = %version
+Group:		Video
+Summary:	SDL video output plugin for xine
+Requires:	%{bname}-plugins = %{version}
 
-%description -n %bname-sdl
+%description -n %{bname}-sdl
 xine is a free gpl-licensed video player for unix-like systems.
 
 This package contains the SDL video output plugin.
 
-%if %build_caca
+%if %{build_caca}
 %package -n %{bname}-caca
-Group: Video
-Summary: Caca video output plugin for xine
-Requires: %{bname}-plugins = %version
-Buildrequires: libcaca-devel >= 0.99
+Group:		Video
+Summary:	Caca video output plugin for xine
+Requires:	%{bname}-plugins = %{version}
+BuildRequires:	libcaca-devel >= 0.99
 
-%description -n %bname-caca
+%description -n %{bname}-caca
 xine is a free gpl-licensed video player for unix-like systems.
 
 This package contains the Caca video output plugin.
 %endif
 
-%package -n %libname
-Summary:     	A Free Video Player (Libraries)
-Group: 		System/Libraries
-Provides:   xine-lib
+%package -n %{libname}
+Summary:	A Free Video Player (Libraries)
+Group:		System/Libraries
+Provides:	xine-lib
 
-%description -n %libname
+%description -n %{libname}
 xine is a free gpl-licensed video player for unix-like systems.
 
 This package contains the shared libraries required by xine.
 
-%package -n %libnamedev
-Summary:        Devel files for xine
-Group:          Development/C
-Requires:	%libname = %version
-Provides:	libxine-devel = %version-%release
-Obsoletes: %mklibname -d xine 1
+%package -n %{libnamedev}
+Summary:	Devel files for xine
+Group:		Development/C
+Requires:	%{libname} = %{version}-%{release}
+Provides:	libxine-devel = %{version}-%{release}
 
 %description -n %libnamedev
 xine is a free gpl-licensed video player for unix-like systems.
@@ -225,12 +215,12 @@ xine is a free gpl-licensed video player for unix-like systems.
 This package contains the development files required for compiling xine
 front ends or plugins.
 
-%if %build_arts
+%if %{build_arts}
 %package -n %{bname}-arts
-Summary:        Arts plugin for xine
-Group:          Video
-Requires:  %{bname}-plugins = %version
-Buildrequires: libarts-devel
+Summary:	Arts plugin for xine
+Group:		Video
+Requires:	%{bname}-plugins = %{version}
+Buildrequires:	libarts-devel
 
 %description -n %{bname}-arts
 xine is a free gpl-licensed video player for unix-like systems.
@@ -239,9 +229,9 @@ xine is a free gpl-licensed video player for unix-like systems.
 %endif
 
 %package -n %{bname}-esd
-Summary:        Esd plugin for xine
-Group:          Sound
-Requires:  %{bname}-plugins = %version
+Summary:	Esd plugin for xine
+Group:		Sound
+Requires:	%{bname}-plugins = %{version}
 
 %description -n %{bname}-esd
 xine is a free gpl-licensed video player for unix-like systems.
@@ -249,23 +239,21 @@ xine is a free gpl-licensed video player for unix-like systems.
 - Esd audio output plugin
 
 %package -n %{bname}-jack
-Summary:        Jack plugin for xine
-Group:          Sound
-Requires:  %{bname}-plugins = %version
+Summary:	Jack plugin for xine
+Group:		Sound
+Requires:	%{bname}-plugins = %{version}
 
 %description -n %{bname}-jack
 xine is a free gpl-licensed video player for unix-like systems.
 
 - Jack audio output plugin
 
-%if %build_pulse
+%if %{build_pulse}
 %package -n %{bname}-pulse
-Summary:        Pulseaudio plugin for xine
-Group:          Sound
-Requires:  %{bname}-plugins = %version
-Provides: %bname-polyp
-Obsoletes: %bname-polyp
-BuildRequires: pkgconfig(libpulse)
+Summary:	Pulseaudio plugin for xine
+Group:		Sound
+Requires:	%{bname}-plugins = %{version}
+BuildRequires:	pkgconfig(libpulse)
 
 %description -n %{bname}-pulse
 xine is a free gpl-licensed video player for unix-like systems.
@@ -273,12 +261,12 @@ xine is a free gpl-licensed video player for unix-like systems.
 - pulseaudio audio output plugin
 %endif
 
-%if %build_magick
+%if %{build_magick}
 %package -n %{bname}-image
-Summary:        ImageMagick plugin for xine
-Group:          Graphics
-Requires:  %{bname}-plugins = %version
-BuildRequires: imagemagick-devel > 5.5.7.15
+Summary:	ImageMagick plugin for xine
+Group:		Graphics
+Requires:	%{bname}-plugins = %{version}
+BuildRequires:	pkgconfig(ImageMagick)
 
 %description -n %{bname}-image
 xine is a free gpl-licensed video player for unix-like systems.
@@ -287,9 +275,9 @@ xine is a free gpl-licensed video player for unix-like systems.
 %endif
 
 %package -n %{bname}-aa
-Summary:        Aalib plugin for xine
-Group:          Video
-Requires:  %{bname}-plugins = %version
+Summary:	Aalib plugin for xine
+Group:		Video
+Requires:	%{bname}-plugins = %{version}
 
 %description -n %{bname}-aa
 xine is a free gpl-licensed video player for unix-like systems.
@@ -297,23 +285,22 @@ xine is a free gpl-licensed video player for unix-like systems.
 - Aalib textmode output plugin
 
 %package -n %{bname}-dxr3
-Summary:        DXR3 plugin for xine
-Group:          Video
-Requires:  %{bname}-plugins = %version
-
+Summary:	DXR3 plugin for xine
+Group:		Video
+Requires:	%{bname}-plugins = %{version}
 
 %description -n %{bname}-dxr3
 xine is a free gpl-licensed video player for unix-like systems.
 
 - DXR3/Hollywood+ (MPEG2 hardware decoder) decoding/output plugin
-%if %build_plf
-- this version has mpeg encoding enabled using libfame
+%if %{build_plf}
+- this version has mpeg encoding enabled using libfame.
 %endif
 
 %package -n %{bname}-flac
-Summary:        FLAC plugin for xine
-Group:          Sound
-Requires:  %{bname}-plugins = %version
+Summary:	FLAC plugin for xine
+Group:		Sound
+Requires:	%{bname}-plugins = %{version}
 
 %description -n %{bname}-flac
 xine is a free gpl-licensed video player for unix-like systems.
@@ -321,9 +308,9 @@ xine is a free gpl-licensed video player for unix-like systems.
 - FLAC audio decoder plugin
 
 %package -n %{bname}-gnomevfs
-Summary:        GNOME VFS plugin for xine
-Group:          System/Libraries
-Requires:  %{bname}-plugins = %version
+Summary:	GNOME VFS plugin for xine
+Group:		System/Libraries
+Requires:	%{bname}-plugins = %{version}
 
 %description -n %{bname}-gnomevfs
 xine is a free gpl-licensed video player for unix-like systems.
@@ -331,50 +318,45 @@ xine is a free gpl-licensed video player for unix-like systems.
 - GNOME VFS input plugin
 
 %package -n %{bname}-smb
-Summary:        Samba input plugin for xine
-Group:          System/Libraries
-Requires:  %{bname}-plugins = %version
+Summary:	Samba input plugin for xine
+Group:		System/Libraries
+Requires:	%{bname}-plugins = %{version}
 
 %description -n %{bname}-smb
 xine is a free gpl-licensed video player for unix-like systems.
 
 - Samba input plugin
 
-
-
-%if %build_divx4
+%if %{build_divx4}
 %package -n %{bname}-divx4
-Summary:     	Divx4 plugin for %{bname}
+Summary:	Divx4 plugin for %{bname}
 Group: 		Video
 Requires:	%{bname}-plugins = %{version}
-ExclusiveArch:	%ix86
-Obsoletes:	xine-plugins-divx4
+ExclusiveArch:	%{ix86}
 Provides:	xine-plugins-divx4
-Requires:  %{bname}-plugins = %version
 
 %description -n %{bname}-divx4
 This package contains the divx4linux plugin for %{bname}. It is in
 PLF because it is covered by software patents.
 %endif
 
-%if %build_faad
+%if %{build_faad}
 %package -n %{bname}-faad
-Summary:     	FAAD plugin for %{bname}
-Group: 	Sound
-Requires:  %{bname}-plugins = %version
-BuildRequires: libfaad2-devel
+Summary:	FAAD plugin for %{bname}
+Group:		Sound
+Requires:	%{bname}-plugins = %{version}
+BuildRequires:	libfaad2-devel
 
 %description -n %{bname}-faad
 This package contains the AAC decoder plugin for %{bname}. It is in
-PLF because it is covered by software patents.
+restricted repository because it is covered by software patents.
 %endif
 
-%if %build_xvid
+%if %{build_xvid}
 %package -n %{bname}-xvid
-Summary:     	XviD plugin for %{bname}
-Group: 		Video
-Requires:  %{bname}-plugins = %version
-Obsoletes:	xine-plugins-xvid
+Summary:	XviD plugin for %{bname}
+Group:		Video
+Requires:	%{bname}-plugins = %{version}
 Provides:	xine-plugins-xvid
 
 %description -n %{bname}-xvid
@@ -386,11 +368,10 @@ PLF because it is covered by software patents.
 %setup -q
 
 %build
-
 #gw for flac
 export OGG_LIBS=-logg
 
-%if !%build_optimization
+%if ! %{build_optimization}
 export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 %configure2_5x \
 %else
@@ -412,28 +393,28 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 	--mandir=%{_mandir} \
 	--infodir=%{_datadir}/info \
 %endif
-%if ! %external_vcdnav
+%if ! %{external_vcdnav}
   --with-internal-vcdlibs \
 %endif
-%if %build_directfb
+%if %{build_directfb}
   --enable-directfb \
 %endif
-%if ! %build_alsa
+%if ! %{build_alsa}
   --disable-alsa \
 %endif
-%if ! %build_vidix
+%if ! %{build_vidix}
  --disable-vidix \
 %endif
-%if ! %build_faad
+%if ! %{build_faad}
  --disable-faad \
 %endif
-%if ! %build_pulse
+%if ! %{build_pulse}
  --disable-polypaudio \
 %endif
-%if ! %build_linuxfb
+%if ! %{build_linuxfb}
  --disable-fb \
 %endif
-%if %external_ffmpeg
+%if %{external_ffmpeg}
   --with-external-ffmpeg \
 %endif
  --enable-ipv6 --with-libflac --with-wavpack --with-w32-path=%{_libdir}/codecs \
@@ -447,233 +428,197 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 %install
 %makeinstall_std
 
-%multiarch_binaries %buildroot%_bindir/xine-config
+%multiarch_binaries %{buildroot}%{_bindir}/xine-config
 
 #clean out unpackaged files
-rm -f %buildroot/%_libdir/xine/plugins/*/*.la
-rm -f %buildroot/%_libdir/xine/plugins/*/post/*.la
+rm -f %{buildroot}%{_libdir}/xine/plugins/*/*.la
+rm -f %{buildroot}%{_libdir}/xine/plugins/*/post/*.la
 rm -rf installed-docs
-mv %buildroot/%_datadir/doc/xine-lib installed-docs
-rm -f %buildroot/%_libdir/xine/plugins/*/xineplug_inp_vcdo.so
+mv %{buildroot}%{_datadir}/doc/xine-lib installed-docs
+rm -f %{buildroot}%{_libdir}/xine/plugins/*/xineplug_inp_vcdo.so
 
 %find_lang libxine2 || touch libxine2.lang
 
-%if %mdkversion < 200900
-%post -n %libname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %libname -p /sbin/ldconfig
-%endif
-
-%clean
-rm -rf %{buildroot}
-
 %files -n %{bname}-plugins -f libxine2.lang
-%defattr(-,root,root)
 %doc installed-docs/README* installed-docs/faq.*
-%_mandir/man5/xine.5*
-%dir %_libdir/xine/
-%dir %_libdir/xine/plugins/
-%dir %_libdir/xine/plugins/%api/
-%dir %_libdir/xine/plugins/%api/post/
-%_libdir/xine/plugins/%api/mime.types
-%if %build_alsa
-%_libdir/xine/plugins/%api/xineplug_ao_out_alsa.so
+%{_mandir}/man5/xine.5*
+%dir %{_libdir}/xine/
+%dir %{_libdir}/xine/plugins/
+%dir %{_libdir}/xine/plugins/%{api}/
+%dir %{_libdir}/xine/plugins/%{api}/post/
+%{_libdir}/xine/plugins/%{api}/mime.types
+%if %{build_alsa}
+%{_libdir}/xine/plugins/%{api}/xineplug_ao_out_alsa.so
 %endif
-%_libdir/xine/plugins/%api/xineplug_ao_out_file.so
-%_libdir/xine/plugins/%api/xineplug_ao_out_none.so
-%_libdir/xine/plugins/%api/xineplug_ao_out_oss.so
-%_libdir/xine/plugins/%api/xineplug_inp_cdda.so
-%_libdir/xine/plugins/%api/xineplug_inp_dvb.so
-%_libdir/xine/plugins/%api/xineplug_inp_dvd.so
-%_libdir/xine/plugins/%api/xineplug_inp_http.so
-%_libdir/xine/plugins/%api/xineplug_inp_stdin_fifo.so
-%_libdir/xine/plugins/%api/xineplug_inp_file.so
-%_libdir/xine/plugins/%api/xineplug_inp_mms.so
-%_libdir/xine/plugins/%api/xineplug_inp_net.so
-%_libdir/xine/plugins/%api/xineplug_inp_pnm.so
-%_libdir/xine/plugins/%api/xineplug_inp_pvr.so
-%_libdir/xine/plugins/%api/xineplug_inp_rtp.so
-%_libdir/xine/plugins/%api/xineplug_inp_rtsp.so
-%_libdir/xine/plugins/%api/xineplug_inp_vcd.so
-%_libdir/xine/plugins/%api/xineplug_inp_v4l2.so
-%_libdir/xine/plugins/%api/xineplug_dmx_*so
-%_libdir/xine/plugins/%api/xineplug_decode_a52.so
-%_libdir/xine/plugins/%api/xineplug_decode_bitplane.so
-%_libdir/xine/plugins/%api/xineplug_decode_dts.so
-%_libdir/xine/plugins/%api/xineplug_decode_dvaudio.so
-%_libdir/xine/plugins/%api/xineplug_decode_ff.so
-%_libdir/xine/plugins/%api/xineplug_decode_gdk_pixbuf.so
-%_libdir/xine/plugins/%api/xineplug_decode_gsm610.so
-%_libdir/xine/plugins/%api/xineplug_decode_lpcm.so
-%_libdir/xine/plugins/%api/xineplug_decode_mad.so
-%_libdir/xine/plugins/%api/xineplug_decode_mpc.so*
-%_libdir/xine/plugins/%api/xineplug_decode_mpeg2.so
-%_libdir/xine/plugins/%api/xineplug_decode_spu*.so
-%_libdir/xine/plugins/%api/xineplug_decode_real.so
-%_libdir/xine/plugins/%api/xineplug_decode_rgb.so
-%_libdir/xine/plugins/%api/xineplug_decode_yuv.so
-%_libdir/xine/plugins/%api/xineplug_decode_vdpau_h264.so
-%_libdir/xine/plugins/%api/xineplug_decode_vdpau_h264_alter.so
-%_libdir/xine/plugins/%api/xineplug_decode_vdpau_mpeg12.so
-%_libdir/xine/plugins/%api/xineplug_decode_vdpau_mpeg4.so
-%_libdir/xine/plugins/%api/xineplug_decode_vdpau_vc1.so
-%_libdir/xine/plugins/%api/xineplug_inp_bluray.so
-%_libdir/xine/plugins/%api/xineplug_nsf.so
-%_libdir/xine/plugins/%api/xineplug_sputext.so
-%_libdir/xine/plugins/%api/xineplug_vdr.so
-%_libdir/xine/plugins/%api/xineplug_vo_out_vdpau.so
-%_libdir/xine/plugins/%api/xineplug_xiph.so
-%if %build_directfb
-%_libdir/xine/plugins/%api/xineplug_vo_out_directfb.so
+%{_libdir}/xine/plugins/%{api}/xineplug_ao_out_file.so
+%{_libdir}/xine/plugins/%{api}/xineplug_ao_out_none.so
+%{_libdir}/xine/plugins/%{api}/xineplug_ao_out_oss.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_cdda.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_dvb.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_dvd.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_http.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_stdin_fifo.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_file.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_mms.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_net.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_pnm.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_pvr.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_rtp.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_rtsp.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_vcd.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_v4l2.so
+%{_libdir}/xine/plugins/%{api}/xineplug_dmx_*so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_a52.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_bitplane.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_dts.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_dvaudio.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_ff.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_gdk_pixbuf.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_gsm610.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_lpcm.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_mad.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_mpc.so*
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_mpeg2.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_spu*.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_real.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_rgb.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_yuv.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_vdpau_h264.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_vdpau_h264_alter.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_vdpau_mpeg12.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_vdpau_mpeg4.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_vdpau_vc1.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_bluray.so
+%{_libdir}/xine/plugins/%{api}/xineplug_nsf.so
+%{_libdir}/xine/plugins/%{api}/xineplug_sputext.so
+%{_libdir}/xine/plugins/%{api}/xineplug_vdr.so
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_vdpau.so
+%{_libdir}/xine/plugins/%{api}/xineplug_xiph.so
+%if %{build_directfb}
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_directfb.so
 %endif
-%if %build_linuxfb
-%_libdir/xine/plugins/%api/xineplug_vo_out_fb.so
+%if %{build_linuxfb}
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_fb.so
 %endif
-%_libdir/xine/plugins/%api/xineplug_vo_out_opengl.so
-%_libdir/xine/plugins/%api/xineplug_vo_out_none.so
-%_libdir/xine/plugins/%api/xineplug_vo_out_raw.so
-%if %build_vidix
-%_libdir/xine/plugins/%api/xineplug_vo_out_vidix.so
-%_libdir/xine/plugins/%api/vidix/
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_opengl.so
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_none.so
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_raw.so
+%if %{build_vidix}
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_vidix.so
+%{_libdir}/xine/plugins/%{api}/vidix/
 %endif
-%_libdir/xine/plugins/%api/xineplug_vo_out_xshm.so
-%_libdir/xine/plugins/%api/xineplug_vo_out_xv.so
-%if %mdkversion >= 200600
-%_libdir/xine/plugins/%api/xineplug_vo_out_xvmc.so
-%_libdir/xine/plugins/%api/xineplug_vo_out_xxmc.so
-%endif
-%if %mdkversion >= 200710
-%_libdir/xine/plugins/%api/xineplug_vo_out_xcbshm.so
-%_libdir/xine/plugins/%api/xineplug_vo_out_xcbxv.so
-%endif
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_xshm.so
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_xv.so
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_xvmc.so
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_xxmc.so
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_xcbshm.so
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_xcbxv.so
 %if %build_win32
-%_libdir/xine/plugins/%api/xineplug_decode_qt.so*
-%_libdir/xine/plugins/%api/xineplug_decode_w32dll.so*
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_qt.so*
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_w32dll.so*
 %endif
-%_libdir/xine/plugins/%api/post/xineplug_post_audio_filters.so
-%_libdir/xine/plugins/%api/post/xineplug_post_goom.so
-%_libdir/xine/plugins/%api/post/xineplug_post_mosaico.so
-%_libdir/xine/plugins/%api/post/xineplug_post_planar.so
-%_libdir/xine/plugins/%api/post/xineplug_post_switch.so
-%_libdir/xine/plugins/%api/post/xineplug_post_tvtime.so
-%_libdir/xine/plugins/%api/post/xineplug_post_visualizations.so
-%_datadir/xine-lib
+%{_libdir}/xine/plugins/%{api}/post/xineplug_post_audio_filters.so
+%{_libdir}/xine/plugins/%{api}/post/xineplug_post_goom.so
+%{_libdir}/xine/plugins/%{api}/post/xineplug_post_mosaico.so
+%{_libdir}/xine/plugins/%{api}/post/xineplug_post_planar.so
+%{_libdir}/xine/plugins/%{api}/post/xineplug_post_switch.so
+%{_libdir}/xine/plugins/%{api}/post/xineplug_post_tvtime.so
+%{_libdir}/xine/plugins/%{api}/post/xineplug_post_visualizations.so
+%{_datadir}/xine-lib
 
-%files -n %bname-sdl
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_vo_out_sdl.so
+%files -n %{bname}-sdl
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_sdl.so
 
-%files -n %bname-wavpack
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_wavpack.so
+%files -n %{bname}-wavpack
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_wavpack.so
 
-%if %build_caca
-%files -n %bname-caca
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_vo_out_caca.so
+%if %{build_caca}
+%files -n %{bname}-caca
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_caca.so
 %endif
 
-%if %build_magick
+%if %{build_magick}
 %files -n %{bname}-image
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_decode_image.so
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_image.so
 %endif
 
-%files -n %libname
-%defattr(-,root,root)
+%files -n %{libname}
 %doc README AUTHORS TODO
-%_libdir/libxine*.so.%{major}*
+%{_libdir}/libxine*.so.%{major}*
 
-%files -n %libnamedev
-%defattr(-,root,root)
+%files -n %{libnamedev}
 %doc README ChangeLog installed-docs/hackersguide
-%_bindir/xine-config
-%_bindir/xine-list-1.2
-%multiarch_bindir/xine-config
-%_mandir/man1/xine-config.1*
-%_mandir/man1/xine-list-1.2.1*
-%if %mdvver < 201200
-%_libdir/*.la
-%endif
-%_libdir/*.so
-%_libdir/pkgconfig/libxine.pc
-%_datadir/aclocal/xine.m4
-%_includedir/*.h
-%_includedir/xine
+%{_bindir}/xine-config
+%{_bindir}/xine-list-1.2
+%{multiarch_bindir}/xine-config
+%{_mandir}/man1/xine-config.1*
+%{_mandir}/man1/xine-list-1.2.1*
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/libxine.pc
+%{_datadir}/aclocal/xine.m4
+%{_includedir}/*.h
+%{_includedir}/xine
 
-
-%if %build_arts
+%if %{build_arts}
 %files -n %{bname}-arts
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_ao_out_arts.so
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_ao_out_arts.so
 %endif
 
 %files -n %{bname}-esd
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_ao_out_esd.so
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_ao_out_esd.so
 
 %files -n %{bname}-jack
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_ao_out_jack.so
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_ao_out_jack.so
 
-%if %build_pulse
+%if %{build_pulse}
 %files -n %{bname}-pulse
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_ao_out_pulseaudio.so
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_ao_out_pulseaudio.so
 %endif
 
 %files -n %{bname}-aa
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_vo_out_aa.so
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_aa.so
 
 %files -n %{bname}-flac
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_flac.so
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_flac.so
 
 %ifarch %{ix86} x86_64 ppc %{arm}
 %files -n %{bname}-dxr3
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_*dxr3*.so
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_*dxr3*.so
 %endif
 
 %files -n %{bname}-gnomevfs
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_inp_gnome_vfs.so
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_gnome_vfs.so
 
-%if %build_smb
+%if %{build_smb}
 %files -n %{bname}-smb
-%defattr(-,root,root)
-%doc README 
-%_libdir/xine/plugins/%api/xineplug_inp_smb.so
+%doc README
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_smb.so
 %endif
 
-%if %build_divx4
+%if %{build_divx4}
 %files -n %{bname}-divx4
-%defattr(-,root,root)
-%_libdir/xine/plugins/%api/xineplug_decode_divx4.so*
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_divx4.so*
 %endif
 
-%if %build_faad
+%if %{build_faad}
 %files -n %{bname}-faad
-%defattr(-,root,root)
-%_libdir/xine/plugins/%api/xineplug_decode_faad.so*
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_faad.so*
 %endif
 
-%if %build_xvid
+%if %{build_xvid}
 %files -n %{bname}-xvid
-%defattr(-,root,root)
-%_libdir/xine/plugins/%api/xineplug_decode_xvid.so*
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_xvid.so*
 %endif
+
