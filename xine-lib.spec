@@ -412,7 +412,7 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 # to use either codecs from RealPlayer or real-codecs, whichever is
 # present.
 
-%make
+%make LIBS='-lX11'
 
 %install
 %makeinstall_std
