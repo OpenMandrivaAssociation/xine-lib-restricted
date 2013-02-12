@@ -1,29 +1,19 @@
-%define major 2
-%define api 2.2
 %define build_optimization 0
+%define dvdnav 0.1.4
 
 %define build_pulse 1
 %define build_magick 1
-%define build_arts 0
 %define build_caca 1
-
 %define build_directfb 0
 %define external_vcdnav 1
 %define build_smb 1
 %define build_alsa 1
+%define build_linuxfb 1
 
 %define build_vidix 1
 %ifnarch %ix86
 %define build_vidix 0
 %endif
-
-%define build_linuxfb 1
-
-%define libname		%mklibname xine %{major}
-%define libnamedev	%mklibname -d xine
-
-%define bname xine
-%define dvdnav 0.1.4
 
 %define build_divx4 0
 %define build_xvid 0
@@ -76,38 +66,45 @@
 %{?_with_ffmpeg: %{expand: %%global external_ffmpeg 1}}
 %{?_without_ffmpeg: %{expand: %%global external_ffmpeg 0}}
 
+%define bname xine
+%define major	2
+%define api	2.2
+%define libname	%mklibname xine %{major}
+%define devname	%mklibname -d xine
+
 Name:		xine-lib
 Summary:	A Free Video Player (Libraries)
 Version:	1.2.2
-Release:	2%{?extrarelsuffix}
+Release:	3%{?extrarelsuffix}
 License:	GPLv2+
 Group:		System/Libraries
+Url:		http://xine.sourceforge.net
 Source0:	http://downloads.sourceforge.net/project/xine/xine-lib/%{version}/xine-lib-%{version}.tar.xz
-URL:		http://xine.sourceforge.net
+
 BuildConflicts:	pkgconfig(libxine) < %{version}
 BuildRequires:	gettext-devel
 BuildRequires:	aalib-devel
-BuildRequires:	pkgconfig(esound)
-BuildRequires:	pkgconfig(vorbis)
-BuildRequires:	pkgconfig(vorbisfile)
-BuildRequires:	pkgconfig(speex)
-BuildRequires:	pkgconfig(jack)
-BuildRequires:	pkgconfig(sdl)
 BuildRequires:	mng-devel
+BuildRequires:	pkgconfig(esound)
 BuildRequires:	pkgconfig(flac)
 BuildRequires:	pkgconfig(gnome-vfs-2.0)
-BuildRequires:	pkgconfig(libmodplug)
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
-BuildRequires:	pkgconfig(wavpack)
-BuildRequires:	pkgconfig(libv4l2)
 BuildRequires:	pkgconfig(glu)
+BuildRequires:	pkgconfig(ice)
+BuildRequires:	pkgconfig(jack)
+BuildRequires:	pkgconfig(libbluray)
+BuildRequires:	pkgconfig(libmodplug)
+BuildRequires:	pkgconfig(libv4l2)
+BuildRequires:	pkgconfig(mad)
+BuildRequires:	pkgconfig(speex)
+BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(vdpau)
+BuildRequires:	pkgconfig(vorbis)
+BuildRequires:	pkgconfig(vorbisfile)
+BuildRequires:	pkgconfig(wavpack)
 BuildRequires:	pkgconfig(xv)
 BuildRequires:	pkgconfig(xvmc)
 BuildRequires:	pkgconfig(xinerama)
-BuildRequires:	pkgconfig(vdpau)
-BuildRequires:	pkgconfig(libbluray)
-BuildRequires:	pkgconfig(mad)
-BuildRequires:	pkgconfig(ice)
 %if %{build_smb}
 BuildRequires:	pkgconfig(smbclient)
 %endif
@@ -121,9 +118,6 @@ Buildrequires:	pkgconfig(directfb)
 BuildRequires:	pkgconfig(libavcodec)
 %endif
 BuildRequires:	libmpcdec-devel
-
-BuildRequires:	autoconf2.5
-BuildRequires:	automake
 
 %description
 xine is a free gpl-licensed video player for unix-like systems.
@@ -205,30 +199,17 @@ xine is a free gpl-licensed video player for unix-like systems.
 
 This package contains the shared libraries required by xine.
 
-%package -n %{libnamedev}
+%package -n %{devname}
 Summary:	Devel files for xine
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	libxine-devel = %{version}-%{release}
 
-%description -n %libnamedev
+%description -n %{devname}
 xine is a free gpl-licensed video player for unix-like systems.
 
 This package contains the development files required for compiling xine
 front ends or plugins.
-
-%if %{build_arts}
-%package -n %{bname}-arts
-Summary:	Arts plugin for xine
-Group:		Video
-Requires:	%{bname}-plugins = %{version}
-Buildrequires:	libarts-devel
-
-%description -n %{bname}-arts
-xine is a free gpl-licensed video player for unix-like systems.
-
-- Arts audio output plugin
-%endif
 
 %package -n %{bname}-esd
 Summary:	Esd plugin for xine
@@ -396,31 +377,34 @@ export CFLAGS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)"
 	--infodir=%{_datadir}/info \
 %endif
 %if ! %{external_vcdnav}
-  --with-internal-vcdlibs \
+	--with-internal-vcdlibs \
 %endif
 %if %{build_directfb}
-  --enable-directfb \
+	--enable-directfb \
 %endif
 %if ! %{build_alsa}
-  --disable-alsa \
+	--disable-alsa \
 %endif
 %if ! %{build_vidix}
- --disable-vidix \
+	--disable-vidix \
 %endif
 %if ! %{build_faad}
- --disable-faad \
+	--disable-faad \
 %endif
 %if ! %{build_pulse}
- --disable-polypaudio \
+	--disable-polypaudio \
 %endif
 %if ! %{build_linuxfb}
- --disable-fb \
+	--disable-fb \
 %endif
 %if %{external_ffmpeg}
-  --with-external-ffmpeg \
+ 	--with-external-ffmpeg \
 %endif
- --enable-ipv6 --with-libflac --with-wavpack --with-w32-path=%{_libdir}/codecs \
- --with-external-libmpcdec
+	--enable-ipv6 \
+	--with-libflac \
+	--with-wavpack \
+	--with-w32-path=%{_libdir}/codecs \
+	--with-external-libmpcdec
 # real-codecs-path is not set so that runtime searching is used. We want
 # to use either codecs from RealPlayer or real-codecs, whichever is
 # present.
@@ -549,11 +533,11 @@ rm -f %{buildroot}%{_libdir}/xine/plugins/*/xineplug_inp_vcdo.so
 %endif
 
 %files -n %{libname}
-%doc README AUTHORS TODO
-%{_libdir}/libxine*.so.%{major}*
+%{_libdir}/libxine.so.%{major}*
 
-%files -n %{libnamedev}
-%doc README ChangeLog installed-docs/hackersguide
+%files -n %{devname}
+%doc README AUTHORS TODO
+%doc ChangeLog installed-docs/hackersguide
 %{_bindir}/xine-config
 %{_bindir}/xine-list-1.2
 %{multiarch_bindir}/xine-config
@@ -565,47 +549,33 @@ rm -f %{buildroot}%{_libdir}/xine/plugins/*/xineplug_inp_vcdo.so
 %{_includedir}/*.h
 %{_includedir}/xine
 
-%if %{build_arts}
-%files -n %{bname}-arts
-%doc README
-%{_libdir}/xine/plugins/%{api}/xineplug_ao_out_arts.so
-%endif
-
 %files -n %{bname}-esd
-%doc README
 %{_libdir}/xine/plugins/%{api}/xineplug_ao_out_esd.so
 
 %files -n %{bname}-jack
-%doc README
 %{_libdir}/xine/plugins/%{api}/xineplug_ao_out_jack.so
 
 %if %{build_pulse}
 %files -n %{bname}-pulse
-%doc README
 %{_libdir}/xine/plugins/%{api}/xineplug_ao_out_pulseaudio.so
 %endif
 
 %files -n %{bname}-aa
-%doc README
 %{_libdir}/xine/plugins/%{api}/xineplug_vo_out_aa.so
 
 %files -n %{bname}-flac
-%doc README
 %{_libdir}/xine/plugins/%{api}/xineplug_flac.so
 
 %ifarch %{ix86} x86_64 ppc %{arm}
 %files -n %{bname}-dxr3
-%doc README
 %{_libdir}/xine/plugins/%{api}/xineplug_*dxr3*.so
 %endif
 
 %files -n %{bname}-gnomevfs
-%doc README
 %{_libdir}/xine/plugins/%{api}/xineplug_inp_gnome_vfs.so
 
 %if %{build_smb}
 %files -n %{bname}-smb
-%doc README
 %{_libdir}/xine/plugins/%{api}/xineplug_inp_smb.so
 %endif
 
