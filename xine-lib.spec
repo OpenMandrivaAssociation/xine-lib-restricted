@@ -92,8 +92,8 @@ BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(vorbisfile)
 BuildRequires:	pkgconfig(speex)
 BuildRequires:	pkgconfig(jack)
-Buildrequires:	pkgconfig(sdl)
-Buildrequires:	mng-devel
+BuildRequires:	pkgconfig(sdl)
+BuildRequires:	mng-devel
 BuildRequires:	pkgconfig(flac)
 BuildRequires:	pkgconfig(gnome-vfs-2.0)
 BuildRequires:	pkgconfig(libmodplug)
@@ -106,6 +106,8 @@ BuildRequires:	pkgconfig(xvmc)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(vdpau)
 BuildRequires:	pkgconfig(libbluray)
+BuildRequires:	pkgconfig(mad)
+BuildRequires:	pkgconfig(ice)
 %if %{build_smb}
 BuildRequires:	pkgconfig(smbclient)
 %endif
