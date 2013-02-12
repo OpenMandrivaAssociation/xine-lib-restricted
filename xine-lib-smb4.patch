@@ -1,0 +1,22 @@
+--- xine-lib-1.2.2/configure.orig	2013-02-12 20:50:49.647085205 +0000
++++ xine-lib-1.2.2/configure	2013-02-12 20:50:03.365085739 +0000
+@@ -26447,7 +26447,7 @@
+ if test "x$ac_cv_lib_smbclient_smbc_init" = xyes; then :
+   for ac_header in libsmbclient.h
+ do :
+-  ac_fn_c_check_header_mongrel "$LINENO" "libsmbclient.h" "ac_cv_header_libsmbclient_h" "$ac_includes_default"
++  ac_fn_c_check_header_mongrel "$LINENO" "samba-4.0/libsmbclient.h" "ac_cv_header_libsmbclient_h" "$ac_includes_default"
+ if test "x$ac_cv_header_libsmbclient_h" = xyes; then :
+   cat >>confdefs.h <<_ACEOF
+ #define HAVE_LIBSMBCLIENT_H 1
+--- xine-lib-1.2.2/src/input/input_smb.c.orig	2013-02-12 20:53:24.723083059 +0000
++++ xine-lib-1.2.2/src/input/input_smb.c	2013-02-12 20:53:50.057082289 +0000
+@@ -28,7 +28,7 @@
+ #include <xine/compat.h>
+ #include <xine/input_plugin.h>
+ 
+-#include <libsmbclient.h>
++#include <samba-4.0/libsmbclient.h>
+ #include <sys/types.h>
+ #include <errno.h>
+ 

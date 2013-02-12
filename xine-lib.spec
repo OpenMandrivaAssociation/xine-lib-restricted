@@ -80,6 +80,7 @@ License:	GPLv2+
 Group:		System/Libraries
 Url:		http://xine.sourceforge.net
 Source0:	http://downloads.sourceforge.net/project/xine/xine-lib/%{version}/xine-lib-%{version}.tar.xz
+Patch0:		xine-lib-smb4.patch
 
 BuildConflicts:	pkgconfig(libxine) < %{version}
 BuildRequires:	gettext-devel
@@ -98,13 +99,14 @@ BuildRequires:	pkgconfig(libv4l2)
 BuildRequires:	pkgconfig(mad)
 BuildRequires:	pkgconfig(speex)
 BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(vdpau)
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(vorbisfile)
 BuildRequires:	pkgconfig(wavpack)
+BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xv)
 BuildRequires:	pkgconfig(xvmc)
-BuildRequires:	pkgconfig(xinerama)
 %if %{build_smb}
 BuildRequires:	pkgconfig(smbclient)
 %endif
@@ -349,6 +351,7 @@ PLF because it is covered by software patents.
 
 %prep
 %setup -q
+%apply_patches
 
 %build
 #gw for flac
