@@ -80,6 +80,7 @@ License:	GPLv2+
 Group:		System/Libraries
 Url:		http://xine.sourceforge.net
 Source0:	http://downloads.sourceforge.net/project/xine/xine-lib/%{version}/xine-lib-%{version}.tar.xz
+Source1:	accel_vaapi.h
 Patch0:		xine-lib-smb4.patch
 
 BuildRequires:	aalib-devel
@@ -352,6 +353,8 @@ PLF because it is covered by software patents.
 %prep
 %setup -q
 %apply_patches
+#copy missing source file
+cp %{SOURCE1} src/xine-engine
 
 %build
 #gw for flac
