@@ -68,7 +68,7 @@
 
 %define bname xine
 %define major	2
-%define api	2.2
+%define api	2.3
 %define libname	%mklibname xine %{major}
 %define devname	%mklibname -d xine
 
