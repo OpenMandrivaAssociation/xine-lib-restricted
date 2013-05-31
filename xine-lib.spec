@@ -457,6 +457,7 @@ rm -f %{buildroot}%{_libdir}/xine/plugins/*/xineplug_inp_vcdo.so
 %{_libdir}/xine/plugins/%{api}/xineplug_inp_pvr.so
 %{_libdir}/xine/plugins/%{api}/xineplug_inp_rtp.so
 %{_libdir}/xine/plugins/%{api}/xineplug_inp_rtsp.so
+%{_libdir}/xine/plugins/%{api}/xineplug_inp_test.so
 %{_libdir}/xine/plugins/%{api}/xineplug_inp_vcd.so
 %{_libdir}/xine/plugins/%{api}/xineplug_inp_v4l2.so
 %{_libdir}/xine/plugins/%{api}/xineplug_dmx_*so
@@ -467,6 +468,7 @@ rm -f %{buildroot}%{_libdir}/xine/plugins/*/xineplug_inp_vcdo.so
 %{_libdir}/xine/plugins/%{api}/xineplug_decode_ff.so
 %{_libdir}/xine/plugins/%{api}/xineplug_decode_gdk_pixbuf.so
 %{_libdir}/xine/plugins/%{api}/xineplug_decode_gsm610.so
+%{_libdir}/xine/plugins/%{api}/xineplug_decode_libjpeg.so
 %{_libdir}/xine/plugins/%{api}/xineplug_decode_lpcm.so
 %{_libdir}/xine/plugins/%{api}/xineplug_decode_mad.so
 %{_libdir}/xine/plugins/%{api}/xineplug_decode_mpc.so*
@@ -484,6 +486,7 @@ rm -f %{buildroot}%{_libdir}/xine/plugins/*/xineplug_inp_vcdo.so
 %{_libdir}/xine/plugins/%{api}/xineplug_nsf.so
 %{_libdir}/xine/plugins/%{api}/xineplug_sputext.so
 %{_libdir}/xine/plugins/%{api}/xineplug_vdr.so
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_vaapi.so
 %{_libdir}/xine/plugins/%{api}/xineplug_vo_out_vdpau.so
 %{_libdir}/xine/plugins/%{api}/xineplug_xiph.so
 %if %{build_directfb}
@@ -493,6 +496,7 @@ rm -f %{buildroot}%{_libdir}/xine/plugins/*/xineplug_inp_vcdo.so
 %{_libdir}/xine/plugins/%{api}/xineplug_vo_out_fb.so
 %endif
 %{_libdir}/xine/plugins/%{api}/xineplug_vo_out_opengl.so
+%{_libdir}/xine/plugins/%{api}/xineplug_vo_out_opengl2.so
 %{_libdir}/xine/plugins/%{api}/xineplug_vo_out_none.so
 %{_libdir}/xine/plugins/%{api}/xineplug_vo_out_raw.so
 %if %{build_vidix}
