@@ -9,6 +9,7 @@
 %define build_smb 1
 %define build_alsa 1
 %define build_linuxfb 1
+%bcond_with esd
 
 %define build_vidix 0
 %ifnarch %ix86
@@ -75,7 +76,7 @@
 Name:		xine-lib
 Summary:	A Free Video Player (Libraries)
 Version:	1.2.3
-Release:	1%{?extrarelsuffix}
+Release:	2%{?extrarelsuffix}
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://xine.sourceforge.net
@@ -87,7 +88,6 @@ BuildRequires:	aalib-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libmpcdec-devel
 BuildRequires:	mng-devel
-BuildRequires:	pkgconfig(esound)
 BuildRequires:	pkgconfig(flac)
 BuildRequires:	pkgconfig(gnome-vfs-2.0)
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
@@ -559,8 +559,10 @@ rm -f %{buildroot}%{_libdir}/xine/plugins/*/xineplug_inp_vcdo.so
 %{_includedir}/*.h
 %{_includedir}/xine
 
+%if %{with esd}
 %files -n %{bname}-esd
 %{_libdir}/xine/plugins/%{api}/xineplug_ao_out_esd.so
+%endif
 
 %files -n %{bname}-jack
 %{_libdir}/xine/plugins/%{api}/xineplug_ao_out_jack.so
