@@ -76,7 +76,7 @@
 Name:		xine-lib
 Summary:	A Free Video Player (Libraries)
 Version:	1.2.4
-Release:	1%{?extrarelsuffix}
+Release:	2%{?extrarelsuffix}
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://xine.sourceforge.net
@@ -85,7 +85,7 @@ Source0:	http://downloads.sourceforge.net/project/xine/xine-lib/%{version}/xine-
 BuildRequires:	aalib-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libmpcdec-devel
-BuildRequires:	mng-devel
+BuildRequires:	pkgconfig(libmng)
 BuildRequires:	pkgconfig(flac)
 BuildRequires:	pkgconfig(gnome-vfs-2.0)
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
