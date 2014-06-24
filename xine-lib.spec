@@ -68,15 +68,15 @@
 %{?_without_ffmpeg: %{expand: %%global external_ffmpeg 0}}
 
 %define bname xine
-%define major	2
-%define api	2.3
-%define libname	%mklibname xine %{major}
-%define devname	%mklibname -d xine
+%define major 2
+%define api 2.3
+%define libname %mklibname xine %{major}
+%define devname %mklibname -d xine
 
 Name:		xine-lib
 Summary:	A Free Video Player (Libraries)
-Version:	1.2.4
-Release:	2%{?extrarelsuffix}
+Version:	1.2.5
+Release:	1%{?extrarelsuffix}
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://xine.sourceforge.net
@@ -109,7 +109,7 @@ BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xv)
 BuildRequires:	pkgconfig(xvmc)
 %if %{build_alsa}
-BuildRequires:  pkgconfig(alsa)
+BuildRequires:	pkgconfig(alsa)
 %endif
 %if %{build_smb}
 BuildRequires:	pkgconfig(smbclient)
@@ -118,7 +118,7 @@ BuildRequires:	pkgconfig(smbclient)
 BuildRequires:	pkgconfig(libvcdinfo)
 %endif
 %if %{build_directfb}
-Buildrequires:	pkgconfig(directfb)
+BuildRequires:	pkgconfig(directfb)
 %endif
 %if %{external_ffmpeg}
 BuildRequires:	pkgconfig(libavcodec)
@@ -136,7 +136,7 @@ Summary:	A Free Video Player (main plugins)
 Group:		Video
 Provides:	%{bname}-xv %{bname}-gl %{bname}-oss %{libname}-docs %{bname}-speex
 Provides:	%{bname}-dvdnav %{bname}-alsa %{bname}-musepack
-%if %{build_win32}
+%if %{build	win32}
 Provides:	xine-plugins-win32
 Provides:	xine-win32
 #Suggests: win32-codecs
