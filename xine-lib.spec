@@ -26,7 +26,7 @@
 
 ######################
 # Hardcode PLF build
-%define build_plf 1
+%define build_plf 0
 ######################
 
 %if %{build_plf}
@@ -82,7 +82,7 @@ Source1:	accel_vaapi.h
 BuildRequires:	aalib-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libmpcdec-devel
-BuildRequires:	mng-devel
+BuildRequires:	pkgconfig(libmng)
 BuildRequires:	pkgconfig(esound)
 BuildRequires:	pkgconfig(flac)
 BuildRequires:	pkgconfig(gnome-vfs-2.0)
@@ -113,7 +113,7 @@ BuildRequires:	pkgconfig(smbclient)
 BuildRequires:	pkgconfig(libvcdinfo)
 %endif
 %if %{build_directfb}
-Buildrequires:	pkgconfig(directfb)
+BuildRequires:	pkgconfig(directfb)
 %endif
 %if %{external_ffmpeg}
 BuildRequires:	pkgconfig(libavcodec)
