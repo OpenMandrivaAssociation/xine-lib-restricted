@@ -66,6 +66,8 @@
 %{?_without_magick: %{expand: %%global build_magick 0}}
 %{?_with_ffmpeg: %{expand: %%global external_ffmpeg 1}}
 %{?_without_ffmpeg: %{expand: %%global external_ffmpeg 0}}
+%{?_with_win32: %{expand: %%global build_win32 1}
+%{?_without_win32: %{expand: %%global build_win32 0}}
 
 %define bname xine
 %define major 2
@@ -136,7 +138,7 @@ Summary:	A Free Video Player (main plugins)
 Group:		Video
 Provides:	%{bname}-xv %{bname}-gl %{bname}-oss %{libname}-docs %{bname}-speex
 Provides:	%{bname}-dvdnav %{bname}-alsa %{bname}-musepack
-%if %{build	win32}
+%if %{build_win32}
 Provides:	xine-plugins-win32
 Provides:	xine-win32
 #Suggests: win32-codecs
