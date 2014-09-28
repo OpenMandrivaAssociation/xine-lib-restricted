@@ -411,7 +411,7 @@ xine is a free gpl-licensed video player for unix-like systems.
 
 #----------------------------------------------------------------------------
 
-%ifarch %{ix86} x86_64 ppc %{arm}
+%ifarch %{ix86} x86_64 ppc %{armx}
 %package -n %{bname}-dxr3
 Summary:	DXR3 plugin for xine
 Group:		Video
