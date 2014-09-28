@@ -16,3 +16,14 @@ diff --git a/src/post/planar/eq2.c b/src/post/planar/eq2.c
    );
  
    while (h-- > 0) {
+--- a/src/libw32dll/wine/Makefile.in.orig	2014-09-28 18:04:43.109574405 +0100
++++ a/src/libw32dll/wine/Makefile.in	2014-09-28 18:05:02.333955988 +0100
+@@ -557,7 +557,7 @@
+ # disable -fomit-frame-pointer, -finline-functions, and -frename-registers
+ # because they cause bad behavior of wine
+ AM_CFLAGS = $(DEFAULT_OCFLAGS) $(X_CFLAGS) @W32_NO_OPTIMIZE@ \
+-        -fno-omit-frame-pointer -fno-inline-functions -fno-rename-registers
++        -fno-omit-frame-pointer -fno-inline-functions
+ 
+ AM_CPPFLAGS = -DWIN32_PATH=\"$(w32_path)\" -I$(srcdir)/.. -D__WINE__ \
+ 	-Ddbg_printf=__vprintf -DTRACE=__vprintf \
