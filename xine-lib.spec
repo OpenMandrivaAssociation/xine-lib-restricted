@@ -65,25 +65,24 @@
 
 %define bname xine
 %define major 2
-%define api 2.4
+%define api 2.5
 %define libname %mklibname xine %{major}
 %define devname %mklibname -d xine
 
 Summary:	A Free Video Player (Libraries)
 Name:		xine-lib
-Version:	1.2.5
-Release:	3%{?extrarelsuffix}
+Version:	1.2.6
+Release:	1%{?extrarelsuffix}
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://xine.sourceforge.net
 Source0:	http://downloads.sourceforge.net/project/xine/xine-lib/%{version}/xine-lib-%{version}.tar.xz
-Source1:	accel_vaapi.h
+Patch1:		xine-lib-1.2.6-clang.patch
 
 BuildRequires:	aalib-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libmpcdec-devel
 BuildRequires:	pkgconfig(libmng)
-BuildRequires:	pkgconfig(esound)
 BuildRequires:	pkgconfig(flac)
 BuildRequires:	pkgconfig(gnome-vfs-2.0)
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
@@ -344,21 +343,6 @@ This package contains the Caca video output plugin.
 
 #----------------------------------------------------------------------------
 
-%package -n %{bname}-esd
-Summary:	Esd plugin for xine
-Group:		Sound
-Requires:	%{bname}-plugins = %{version}
-
-%description -n %{bname}-esd
-xine is a free gpl-licensed video player for unix-like systems.
-
-- Esd audio output plugin
-
-%files -n %{bname}-esd
-%{_libdir}/xine/plugins/%{api}/xineplug_ao_out_esd.so
-
-#----------------------------------------------------------------------------
-
 %package -n %{bname}-jack
 Summary:	Jack plugin for xine
 Group:		Sound
@@ -547,8 +531,7 @@ restricted because it is covered by software patents.
 
 %prep
 %setup -q
-#copy missing source file
-cp %{SOURCE1} src/xine-engine
+%apply_patches
 
 %build
 #gw for flac

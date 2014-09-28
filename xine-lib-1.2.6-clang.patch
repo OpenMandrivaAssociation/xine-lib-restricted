@@ -1,0 +1,18 @@
+diff --git a/src/post/planar/eq2.c b/src/post/planar/eq2.c
+--- a/src/post/planar/eq2.c
++++ b/src/post/planar/eq2.c
+@@ -125,11 +125,11 @@ void affine_1d_MMX (eq2_param_t *par, un
+   dstep = dstride - w;
+ 
+   asm volatile (
+-    "movq (%0), %%mm3 \n\t"
+-    "movq (%1), %%mm4 \n\t"
++    "movq %0, %%mm3 \n\t"
++    "movq %1, %%mm4 \n\t"
+     "pxor %%mm0, %%mm0 \n\t"
+     :
+-    : "g" (brvec), "g" (contvec)
++    : "m" (brvec), "m" (contvec)
+   );
+ 
+   while (h-- > 0) {
