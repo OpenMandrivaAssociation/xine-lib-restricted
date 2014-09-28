@@ -105,6 +105,7 @@ BuildRequires:	pkgconfig(wavpack)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xv)
 BuildRequires:	pkgconfig(xvmc)
+BuildRequires:  pkconfig(alsa)
 %if %{build_smb}
 BuildRequires:	pkgconfig(smbclient)
 %endif
