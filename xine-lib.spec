@@ -25,7 +25,7 @@
 %{?_with_plf: %{expand: %%global build_plf 1}}
 
 ######################
-# Hardcode PLF build
+# Hardcode PLF buildTo 
 %define build_plf 0
 ######################
 
@@ -105,7 +105,7 @@ BuildRequires:	pkgconfig(wavpack)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xv)
 BuildRequires:	pkgconfig(xvmc)
-BuildRequires:  pkconfig(alsa)
+BuildRequires:  pkgconfig(alsa)
 %if %{build_smb}
 BuildRequires:	pkgconfig(smbclient)
 %endif
