@@ -72,7 +72,7 @@
 Summary:	A Free Video Player (Libraries)
 Name:		xine-lib
 Version:	1.2.6
-Release:	1%{?extrarelsuffix}
+Release:	2%{?extrarelsuffix}
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://xine.sourceforge.net
