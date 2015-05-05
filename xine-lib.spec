@@ -72,12 +72,11 @@
 Summary:	A Free Video Player (Libraries)
 Name:		xine-lib
 Version:	1.2.6
-Release:	3%{?extrarelsuffix}
+Release:	0.1%{?extrarelsuffix}
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://xine.sourceforge.net
 Source0:	http://downloads.sourceforge.net/project/xine/xine-lib/%{version}/xine-lib-%{version}.tar.xz
-Patch1:		xine-lib-1.2.6-clang.patch
 
 BuildRequires:	aalib-devel
 BuildRequires:	gettext-devel
