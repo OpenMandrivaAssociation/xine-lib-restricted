@@ -115,7 +115,7 @@ BuildRequires:	pkgconfig(libvcdinfo)
 BuildRequires:	pkgconfig(directfb)
 %endif
 %if %{external_ffmpeg}
-BuildRequires:	pkgconfig(libavcodec)
+BuildRequires:	pkgconfig(libavcodec) >= 2.5.4
 %endif
 
 %description
