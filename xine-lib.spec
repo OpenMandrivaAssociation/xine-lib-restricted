@@ -25,8 +25,8 @@
 %{?_with_plf: %{expand: %%global build_plf 1}}
 
 ######################
-# Hardcode PLF buildTo 
-%define build_plf 0
+# Hardcode PLF build
+%define build_plf 1
 ######################
 
 %if %{build_plf}
