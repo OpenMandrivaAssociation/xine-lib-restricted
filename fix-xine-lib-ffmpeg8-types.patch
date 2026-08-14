@@ -1,0 +1,53 @@
+diff -up xine-lib-1.2.13/src/combined/ffmpeg/ff_video_decoder.c.omv xine-lib-1.2.13/src/combined/ffmpeg/ff_video_decoder.c
+--- xine-lib-1.2.13/src/combined/ffmpeg/ff_video_decoder.c.omv	2025-09-06 17:06:37.611499083 -0400
++++ xine-lib-1.2.13/src/combined/ffmpeg/ff_video_decoder.c	2025-09-06 17:08:45.001884080 -0400
+@@ -2289,8 +2289,8 @@ static void ff_handle_mpeg12_buffer (ff_
+       }
+ 
+       /* transfer some more frame settings for deinterlacing */
+-      img->progressive_frame = !this->av_frame->interlaced_frame;
+-      img->top_field_first   = this->av_frame->top_field_first;
++      img->progressive_frame = !AV_FRAME_FLAG_INTERLACED;
++      img->top_field_first    = AV_FRAME_FLAG_TOP_FIELD_FIRST;
+ 
+       /* get back reordered pts */
+       img->pts = ff_untag_pts (this, this->av_frame);
+@@ -2375,14 +2375,14 @@ static int ff_video_step_get (ff_video_d
+     return step;
+ 
+   /* good: 2 * 1001 / 48000. */
+-  step = (int64_t)90000 * this->context->ticks_per_frame
++  step = (int64_t)90000 * AV_CODEC_PROP_FIELDS 
+        * this->context->time_base.num / this->context->time_base.den;
+   if (step >= 90)
+     return step;
+ 
+   /* bad: 2 * 1 / 60000. seen this once from broken h.264 video usability info (VUI).
+    * VAAPI seems to apply a similar HACK.*/
+-  step = (int64_t)90000000 * this->context->ticks_per_frame
++  step = (int64_t)90000000 * AV_CODEC_PROP_FIELDS 
+        * this->context->time_base.num / this->context->time_base.den;
+   return step;
+ }
+@@ -2675,8 +2675,8 @@ static void ff_handle_buffer (ff_video_d
+           img->duration = video_step_to_use;
+ 
+         /* transfer some more frame settings for deinterlacing */
+-        img->progressive_frame = !this->av_frame->interlaced_frame;
+-        img->top_field_first   = this->av_frame->top_field_first;
++        img->progressive_frame = !AV_FRAME_FLAG_INTERLACED;
++        img->top_field_first    = AV_FRAME_FLAG_TOP_FIELD_FIRST;
+ 
+         this->skipframes = img->draw(img, this->stream);
+         this->state = STATE_FRAME_SENT;
+@@ -2885,8 +2885,8 @@ static void ff_flush_internal (ff_video_
+     if (video_step_to_use <= 750)
+       video_step_to_use = 0;
+     img->duration = this->av_frame2->repeat_pict ? video_step_to_use * 3 / 2 : video_step_to_use;
+-    img->progressive_frame = !this->av_frame2->interlaced_frame;
+-    img->top_field_first   = this->av_frame2->top_field_first;
++    img->progressive_frame = !AV_FRAME_FLAG_INTERLACED;
++    img->top_field_first    = AV_FRAME_FLAG_TOP_FIELD_FIRST;
+ 
+     this->skipframes = img->draw (img, this->stream);
+     if (free_img)
